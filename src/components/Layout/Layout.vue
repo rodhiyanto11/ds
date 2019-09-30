@@ -1,14 +1,15 @@
 <template>
 <div :class="{root: true, chatOpen, sidebarClose, sidebarStatic}">
+  <vue-snotify></vue-snotify>
   <Sidebar />
-  <Helper />
+  <!-- <Helper /> -->
   <div class="wrap">
     <Header />
     <Chat />
     <v-touch class="content" @swipeleft="handleSwipe" @swiperight="handleSwipe" :swipe-options="{direction: 'horizontal', threshold: 100}">
       <router-view />
       <footer class="contentFooter">
-        Sing Vue Version - Made by <a href="https://flatlogic.com" rel="nofollow noopener noreferrer" target="_blank">Flatlogic</a>
+        Admedika <a href="https://admedika.co.id" rel="nofollow noopener noreferrer" target="_blank">BigData</a> &copy; 2019
         </footer>
     </v-touch>
   </div>
@@ -42,7 +43,6 @@ export default {
   },
   created() {
     const staticSidebar = JSON.parse(localStorage.getItem('sidebarStatic'));
-
     if (staticSidebar) {
       this.$store.state.layout.sidebarStatic = true;
     } else if (!this.sidebarClose) {

@@ -1,5 +1,12 @@
 <template>
+
   <div>
+    <loading :showloading="varLoad" />
+    <!-- <vue-element-loading :active="showloading" is-full-screen>
+      <b-spinner variant="danger" type="grow" label="Spinning"></b-spinner>
+      <br/>
+      <span>Loading...</span>
+    </vue-element-loading> -->
     <b-breadcrumb>
       <b-breadcrumb-item>YOU ARE HERE</b-breadcrumb-item>
       <b-breadcrumb-item active>Dashboard</b-breadcrumb-item>
@@ -249,17 +256,19 @@
 
 <script>
 import $ from 'jquery';
-/* eslint-disable */
+
 import 'imports-loader?jQuery=jquery,this=>window!flot';
 import 'imports-loader?jQuery=jquery,this=>window!flot/jquery.flot.pie';
-/* eslint-enable */
 import Widget from '@/components/Widget/Widget';
+import Loading from '@/components/Loading/Loading';
 
 export default {
+  
   name: 'Dashboard',
-  components: { Widget },
+  components: { Widget,Loading },
   data() {
     return {
+      varLoad : true,
       table: [{
         id: 0,
         name: 'Mark Otto',
@@ -313,6 +322,7 @@ export default {
     };
   },
   methods: {
+    
     getRandomData() {
       const arr = [];
 
@@ -355,10 +365,17 @@ export default {
     },
   },
   mounted() {
+    
     this.initChart();
 
     window.addEventListener('resize', this.initChart);
+     
   },
+  created (){
+    setTimeout(() => {
+       this.varLoad = false;
+      }, 2500);
+  }
 };
 </script>
 

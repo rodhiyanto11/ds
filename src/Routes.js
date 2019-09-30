@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import Layout from '@/components/Layout/Layout';
 import Login from '@/pages/Login/Login';
+
 import ErrorPage from '@/pages/Error/Error';
 // Core
 import TypographyPage from '@/pages/Typography/Typography';
@@ -22,12 +23,14 @@ import ChartsPage from '@/pages/Charts/Charts';
 // Ui
 import IconsPage from '@/pages/Icons/Icons';
 import NotificationsPage from '@/pages/Notifications/Notifications';
+//Form
+import Users from '@/pages/Users/Users';
 
-
+import Create from '@/pages/Users/Create';
 Vue.use(Router);
 
 export default new Router({
-  mode: 'history',
+  mode  : 'history',
   routes: [
     {
       path: '/login',
@@ -78,6 +81,18 @@ export default new Router({
           path: 'components/maps',
           name: 'GoogleMapPage',
           component: GoogleMapPage,
+        },
+        {
+          path : 'users',
+          name : 'Users',
+          component : Users,
+          children: [
+            {
+              path: 'create',
+              name: 'usercreate',
+              component: Create,
+            }
+          ]
         },
       ],
     },

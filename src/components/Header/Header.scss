@@ -3,8 +3,8 @@
 .header {
   z-index: 100;
   padding: 7px 1.85rem 0;
-  background: $body-bg;
-
+  background: red;
+  
   @include media-breakpoint-down(md) {
     padding: 7px 10px;
   }

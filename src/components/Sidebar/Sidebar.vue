@@ -5,7 +5,8 @@
     @mouseleave="sidebarMouseLeave"
   >
     <header class="logo">
-      <router-link to="/app"><span class="text-warning">Sing</span> App</router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar thumb float-center"><img data-v-741978ef="" src="/img/a5.84f014f0.jpg" alt="..." class="rounded-circle img-close"></span></router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar float-center"><img data-v-741978ef="" src="/img/a5.84f014f0.jpg" alt="..." class="rounded-circle img-open"></span></router-link>
     </header>
     <ul class="nav">
       <NavLink
@@ -13,6 +14,13 @@
         link="/app/dashboard"
         iconName="flaticon-home"
         index="dashboard"
+        isHeader
+      />
+      <NavLink
+        header="Users"
+        link="/app/users"
+        iconName="flaticon-list"
+        index="users"
         isHeader
       />
       <NavLink
@@ -37,6 +45,18 @@
         isHeader
       />
       <NavLink
+        :activeItem="activeItem"
+        header="Components"
+        link="/app/components"
+        iconName="flaticon-network"
+        index="components"
+        :childrenLinks="[
+          { header: 'Charts', link: '/app/components/charts' },
+          { header: 'Icons', link: '/app/components/icons' },
+          { header: 'Maps', link: '/app/components/maps' },
+        ]"
+      />
+       <NavLink
         :activeItem="activeItem"
         header="Components"
         link="/app/components"

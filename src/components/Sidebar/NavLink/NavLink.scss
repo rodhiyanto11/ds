@@ -88,11 +88,12 @@
 }
 
 a.router-link-active {
-  color: $sidebar-item-active-color;
+  //color: $sidebar-item-active-color;
+  color: red;
 
   .icon {
     border-radius: 50%;
-    background-color: $sidebar-item-active-color;
+    background-color: red;
 
     i {
       color: $white;

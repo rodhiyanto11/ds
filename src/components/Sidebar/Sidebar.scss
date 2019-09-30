@@ -30,6 +30,7 @@
 
 .sidebarClose .logo {
   width: 50px;
+  height: 5%;
 }
 
 .sidebarStatic .logo {
@@ -114,12 +115,15 @@
     }
   }
 }
-
+.img-open{
+  width: 100px;
+}
 .sidebarClose {
   .sidebarLabels > li > a > i {
     margin-left: 8px;
     transition: margin-left $sidebar-transition-time ease-in-out;
   }
+
 }
 
 .sidebarStatic {
@@ -127,8 +131,29 @@
     transition: none;
     margin-left: 0;
   }
+  .img-close{
+    display: none;
+  }
 }
-
+.sidebarOpened {
+  .img-open{
+    margin-top: -60px;
+    margin-left: 40px;
+    display: block;
+  }
+  .img-close {
+    display: none;
+  }
+  
+}
+.sidebarClose{
+  .img-open{
+    display: none;
+  }
+  .img-close {
+    display: block;
+  }
+}
 .sidebarAlerts {
   margin-bottom: $spacer * 2;
   transition: opacity $sidebar-transition-time ease-in-out;

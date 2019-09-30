@@ -1,0 +1,23 @@
+JWT
+https://www.youtube.com/watch?v=HPobijkTJAI LINK
+composer require tymon/jwt-auth install jwt
+"tymon/jwt-auth": "^1.0.0-beta.3@dev"
+https://medium.com/@newrey9227/belajar-autentikasi-api-di-laravel-menggunakan-jwt-c8c52d82e9d4
+
+CORS
+https://github.com/barryvdh/laravel-cors LINK
+composer require barryvdh/laravel-cors download cors handle
+php artisan vendor:publish --provider="Barryvdh\Cors\ServiceProvider" publish config cors
+
+SETUP
+VerifyCsrfToken.php disabled csrf
+
+
+template
+https://demo.flatlogic.com/sing-app-vue/#/app/main/analytics
+
+
+table
+
+https://www.npmjs.com/package/vue-tables-2
+example table https://jsfiddle.net/matfish2/jfa5t4sm/

@@ -3,7 +3,7 @@
 .login-page {
   padding-top: 20vh;
   height: 100%;
-
+  background: linear-gradient(110deg, red 65%, whitesmoke 20%);
   .widget {
     max-width: 460px;
     padding: 30px !important;
@@ -21,7 +21,7 @@
   .footer {
     margin-bottom: 25px;
     font-size: 13px;
-    color: #636c72;
+    color: yellowgreen;
     text-align: center;
 
     @media (min-height: 600px) {

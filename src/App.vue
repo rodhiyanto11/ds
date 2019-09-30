@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  
+  <router-view ></router-view>
+  
 </template>
 
 <script>
@@ -10,9 +12,11 @@ export default {
 
     if (window.localStorage.getItem('authenticated') === 'false') {
       this.$router.push('/login');
+    }else if(window.localStorage.getItem('authenticated') === 'true'){
+      this.$router.push('/app/dashboard');
     }
 
-    if (currentPath === '/' || currentPath === '/app') {
+    if ((currentPath === '/' || currentPath === '/app') && window.localStorage.getItem('authenticated') === true) {
       this.$router.push('/app/dashboard');
     }
   },

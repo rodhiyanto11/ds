@@ -56,7 +56,7 @@ $theme-colors: (
   info: $purple,
   warning: $yellow,
   danger: $red,
-  dark: $gray-800,
+  dark: $gray-800, 
   inverse: $gray-700,
   gray: $gray-300,
   light: $gray-100,
@@ -117,9 +117,11 @@ $breadcrumb-padding-y: 0;
 $breadcrumb-bg: transparent;
 
 $widget-bg: #fff;
-$widget-title-color: #444;
-$widget-shadow: 0 0 40px darken($body-bg, 2%);
-$widget-shadow-designated: -1px 0 8px $gray-400;
+$widget-title-color: #ffffff;
+//$widget-shadow: 0 0 40px darken($body-bg, 2%);
+$widget-shadow: 0 0 0px darken($body-bg, 0%);
+//$widget-shadow-designated: -1px 0 8px $gray-400;
+$widget-shadow-designated: -1px 0 0px $gray-400;
 
 $input-btn-line-height: 1.5;
 
@@ -154,7 +156,7 @@ $widget-bg-color: $white;
 //== Navs
 //
 $nav-tabs-active-link-hover-bg: $white !default;
-$nav-tabs-active-link-hover-color: $gray-700 !default;
+$nav-tabs-active-link-hover-color:$white !default;
 
 //== Forms
 //
@@ -172,7 +174,8 @@ $badge-padding-y: 0.4em;
 $badge-padding-x: 0.4em;
 
 // Breadcrumbs
-$breadcrumb-active-color: $gray-700;
+//$breadcrumb-active-color: $gray-700;
+$breadcrumb-active-color: #ffffff;
 
 // Progress bars
 $progress-height: 0.65rem !default;

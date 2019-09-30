@@ -1,18 +1,17 @@
 <template>
+
   <div class="login-page">
+    <vue-snotify></vue-snotify>
     <b-container>
-      <h5 class="logo">
-        <i class="fa fa-circle text-gray" />
-        sing
-        <i class="fa fa-circle text-warning" />
-      </h5>
-      <Widget class="mx-auto" title="<h3 class='mt-0'>Login to your Web App</h3>" customHeader>
+      
+      <Widget class="mx-auto" title="<center>
+          <img src='https://image4.owler.com/logo/admedika_owler_20160919_225929_original.png'>
+        </center>" customHeader>
+      
         <p class="text-muted mb-0 mt fs-sm">
-          Use Facebook, Twitter or your email to sign in.
+          Use email or your username to sign in.
         </p>
-        <p class="text-muted fs-sm">
-          Don't have an account? Sign up now!
-        </p>
+        
         <form class="mt" @submit.prevent="login">
           <b-alert class="alert-sm" variant="danger" :show="!!errorMessage">
             {{errorMessage}}
@@ -27,29 +26,15 @@
           </div>
           <div class="clearfix">
             <div class="btn-toolbar float-right">
-              <b-button type="reset" size="sm" variant="default">Create an Account</b-button>
               <b-button type="submit" size="sm" variant="inverse">Login</b-button>
             </div>
           </div>
-          <div class="row no-gutters mt-3">
-            <div class="col">
-              <div class="abc-checkbox">
-                <input
-                  type="checkbox"
-                  id="checkbox"
-                />
-                <label for="checkbox" class="text-muted fs-sm">Keep me signed in</label>
-              </div>
-            </div>
-            <div class="col">
-              <a class="mt-sm" href="">Trouble with account?</a>
-            </div>
-          </div>
+         
         </form>
       </Widget>
     </b-container>
     <footer class="footer">
-      2017 &copy; Sing. Admin Dashboard Template.
+      2019 &copy; PT. Administrasi Medika 
     </footer>
   </div>
 </template>
@@ -69,16 +54,30 @@ export default {
     login() {
       const username = this.$refs.username.value;
       const password = this.$refs.password.value;
-
-      if (username.length !== 0 && password.length !== 0) {
-        window.localStorage.setItem('authenticated', true);
-        this.$router.push('/app/main/analytics');
-      }
+      this.$axios.post('api/login',{
+        email : username,
+        password : password
+      },
+     
+      )
+      .then((response) => { 
+        let res = response;
+        
+        this.$token = res.token;
+        localStorage.setItem('authenticated', true);
+        localStorage.setItem('token',this.$token);
+        this.$router.push('/app/dashboard');
+      })
+      .catch((err) => {
+       this.$snotify.error(err);
+      })
+     
     },
   },
+  
   created() {
-    if (window.localStorage.getItem('authenticated') === 'true') {
-      this.$router.push('/app/main/analytics');
+    if (window.localStorage.getItem('authenticated') === 'true' && window.localStorage.getItem('token').length > 0) {
+      this.$router.push('/app/dashboard');
     }
   },
 };
