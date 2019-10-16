@@ -1,13 +1,17 @@
 <template>
 
-  <div class="login-page">
+  <div class="login-page" v-bind:style="{background : changeBackgroundCompany}">
+    <loading :showloading="varLoad" />
     <vue-snotify></vue-snotify>
+    <vue-headful :title="name"/>
     <b-container>
       
-      <Widget class="mx-auto" title="<center>
-          <img src='https://image4.owler.com/logo/admedika_owler_20160919_225929_original.png'>
-        </center>" customHeader>
-      
+      <Widget class="mx-auto" customHeader>
+       <center>
+          <img :src="require(`@/assets/whitelabel/${changeLogo}`)" style="width:200px;height:150px;">
+          <!-- <img v-bind:src="require('@/assets/whitelabel/'+changeLogo+'')" style="width:200px;height:150px;"> -->
+
+        </center>
         <p class="text-muted mb-0 mt fs-sm">
           Use email or your username to sign in.
         </p>
@@ -17,11 +21,11 @@
             {{errorMessage}}
           </b-alert>
           <div class="form-group">
-            <input class="form-control no-border" ref="username"
+            <input class="form-control no-border" v-model="username"
               required type="text" name="username" placeholder="Username" />
           </div>
           <div class="form-group">
-            <input class="form-control no-border" ref="password"
+            <input class="form-control no-border" v-model="password"
             required type="password" name="password" placeholder="Password" />
           </div>
           <div class="clearfix">
@@ -40,45 +44,96 @@
 </template>
 
 <script>
-import Widget from '@/components/Widget/Widget';
 
+import Widget from '@/components/Widget/Widget';
+import Loading from '@/components/Loading/Loading';
+import vueHeadful from 'vue-headful'
 export default {
   name: 'LoginPage',
-  components: { Widget },
+  components: { Widget,Loading, vueHeadful},
   data() {
     return {
+      name : "Login",
+      varLoad : false,
       errorMessage: null,
+      color : '',
+      logo : '',
+      username : '',
+      password : '',
     };
   },
-  methods: {
-    login() {
-      const username = this.$refs.username.value;
-      const password = this.$refs.password.value;
-      this.$axios.post('api/login',{
-        email : username,
-        password : password
-      },
-     
-      )
-      .then((response) => { 
-        let res = response;
-        
-        this.$token = res.token;
-        localStorage.setItem('authenticated', true);
-        localStorage.setItem('token',this.$token);
-        this.$router.push('/app/dashboard');
-      })
-      .catch((err) => {
-       this.$snotify.error(err);
-      })
-     
+  computed : {
+    changeLogo : function(){
+      return this.logo;
     },
+    changeBackgroundCompany : function(){
+     // console.log(window.localStorage.getItem('company'))
+          this.$axios.get('api/getcompanies', {params: {companies_name: window.localStorage.getItem('company'),logo : true}})
+          .then((response) => {
+          this.logo = response.data.data.companies_logo;
+          this.color =  'linear-gradient(110deg, '+response.data.data.companies_color+' 65%, whitesmoke 20%)';
+          })
+        .catch(errors => {
+          this.$snotify.error(errors.response.data);
+          this.color =  'linear-gradient(110deg, #ee4035 65%, whitesmoke 20%)';
+        })
+        return this.color;
+      
+    }
+   
+  },
+  methods: {
+    login : function(){
+      this.varLoad = true;
+      this.$store.dispatch("LOGIN",{
+        email : this.username,
+        password : this.password
+      })
+      .then((response) => {
+       let res = response;
+       localStorage.setItem('userdetail',res);
+       //localStorage.setItem('color',this.color);
+        this.$router.push('/app/dashboard');
+        this.varLoad = false;
+      })
+      .catch(error=>{
+        this.varLoad = false;
+        this.$snotify.error(error);
+      });
+    },
+    setBackground: function(){
+     
+          this.$axios.get('api/getcompanies', {params: {companies_name: window.localStorage.getItem('company'),logo:true}})
+          .then((response) => {
+         
+          localStorage.setItem('logo',response.data.data.companies_logo);
+          localStorage.setItem('color',response.data.data.companies_color);
+          })
+        .catch(errors => {
+          localStorage.setItem('logo','admedika.jpg');
+          localStorage.setItem('color','#ee4035');
+          this.$snotify.error(errors);
+        })
+        return this.color;
+    }
+    
   },
   
   created() {
-    if (window.localStorage.getItem('authenticated') === 'true' && window.localStorage.getItem('token').length > 0) {
+    
+    if(window.localStorage.getItem('authenticated') == 'true'){
+      console.log(1);
+    }else{
+      console.log(window.localStorage.getItem('authenticated') == 'false' ? 'oke' : 'gagal')
+      console.log(window.localStorage.getItem('token') == 'false' ? 'oke' : 'gagal')
+      console.log(2);
+    }
+   
+    if (window.localStorage.getItem('authenticated') !== 'false'  || window.localStorage.getItem('token') !== 'false' ) {
       this.$router.push('/app/dashboard');
     }
+    
+    this.setBackground();
   },
 };
 </script>

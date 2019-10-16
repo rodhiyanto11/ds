@@ -1,10 +1,9 @@
 <template>
-
   <div>
-    <router-view></router-view>
     <loading :showloading="varLoad" />
-    <h1 class="page-title">Data-User</h1>
-     <b-row>
+    <vue-headful :title="name"/>
+    <div>
+       <b-row>
       <b-col lg="3" sm="6" xs="12">
         <div class="pb-xlg h-100">
           <Widget class="h-100 mb-0" title="Visits Today">
@@ -101,14 +100,14 @@
         <b-row>
         <b-col xs="12">
             <div class="projects">
-              <div class="tableFilters form-inline float-right">
+                
+              <div class="tableFilters form-inline ">
                 <div class="col-md-2 col-xs-2">
-                  <router-link to="users/create" class="btn btn-success"></router-link>
-                  <button class="btn btn-success"></button>
+                  <router-link class="btn btn-outline-dark" to='/app/users/form/Create/new'>Create Account</router-link>
                 </div>
-                <div class="col-md-8 col-xs-2">
+                <div class="col-md-8 col-xs-2 float-right">
                         <div class="input-group">
-                            <input type="search" class="form-control"  v-model="tableData.search" placeholder="Search Table" id="search-input">
+                            <input type="search" class="form-control"  v-model="tableData.search" placeholder="Search Account" id="search-input">
                             <span class="input-group-append">
                                 <button type="button" class="btn btn-default" @click="getProjects()">Search</button>
                             </span>
@@ -125,7 +124,7 @@
             </div>
         
         <div class="card-body">
-          <datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="table-responsive">
+          <Datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="table-responsive">
             <tbody>
                 <tr v-for="project in projects" :key="project.id">
                   <td><li></li></td>
@@ -133,17 +132,18 @@
                   <td>{{project.id}}</td>
                   <td>{{project.email}}</td>
                   <td>
-                    <button class="btn"  v-tooltip="'Edit.'"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-                    <button class="btn"  v-tooltip="'Delete.'"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <router-link :to="'/app/users/form/Update/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
+                        &nbsp;
+                    <router-link :to="'/app/users/form/Delete/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
                   </td>
 
                 </tr>
             </tbody>
-          </datatable>
-          <pagination :pagination="pagination"
+          </Datatable>
+          <Pagination :pagination="pagination"
             @prev="getProjects(pagination.prevPageUrl)"
             @next="getProjects(pagination.nextPageUrl)">
-          </pagination>
+          </Pagination>
         </div>
         </div>
         </b-col>
@@ -153,19 +153,22 @@
         </Widget>
       </b-col>
     </b-row>
+    </div>
+    
     
   </div>
 </template>
 
 <script>
 import Widget from '@/components/Widget/Widget';
-import Datatable from '@/components/Datatable/Datatable.vue';
-import Pagination from '@/components/Pagination/Pagination.vue';
+import Datatable from '@/components/Datatable/Datatable';
+import Pagination from '@/components/Pagination/Pagination';
 import Loading from '@/components/Loading/Loading';
-import Create from '@/pages/Users/Create';
+import vueHeadful from 'vue-headful';
 export default {
-  name: 'Data',
-  components: { Widget,datatable: Datatable, pagination: Pagination , Loading},
+
+  name: 'Dashboard',
+  components: { Widget,Datatable: Datatable, Pagination: Pagination , Loading, vueHeadful},
  data() {
         let sortOrders = {};
         let columns = [
@@ -180,7 +183,8 @@ export default {
            sortOrders[column.name] = -1;
         });
         return {
-            varLoad : true,
+            name : 'User-Dashboard',
+            varLoad : false,
             incrementNumber : 0,
             incrementHit : 1,
             projects: [],
@@ -208,24 +212,40 @@ export default {
         }
     },
   methods: {
-    getProjects(url = '/api/admin/users') {
+    getProjects(url = '/api/users') {
             this.varLoad = true;
             this.tableData.draw++;
             this.$axios.get(url, {params: this.tableData})
                 .then(response => {
-                    
                     let data = response.data;
-                    if (this.tableData.draw == data.draw) {
+                    if(data.status == 'Token is Invalid'){
+                      window.localStorage.setItem('authenticated', false);
+                      window.localStorage.setItem('token', false);
+                      this.$router.push('/login');
+                    }else{
+                      if (this.tableData.draw == data.draw) {
                         this.projects = data.data.data;
                         this.configPagination(data.data);
                         this.incrementNumber = data.data.from;
                          this.$snotify.success('Fetch data is successfully')
+                      }
                     }
+                    
                    this.varLoad = false;
                 })
                 .catch(errors => {
-                  this.varLoad = false;
-                 this.$snotify.error(errors);
+                 this.varLoad = false;
+                 
+                 if(errors.response.status == '401'){
+                    window.localStorage.setItem('authenticated', false);
+                    window.localStorage.setItem('token', false);
+                    this.$snotify.error('Invalid token');
+                    setTimeout(() => {
+                        this.$router.push('/login');
+                    }, 5000);
+                 }else{
+                   this.$snotify.error(errors);
+                 }
                 });
             //this.varLoad = false;
         },
@@ -256,7 +276,11 @@ export default {
   mounted() {
     //this.getProjects();
   },
+  computed:{
+    
+    },
   created() {
+  
  //   this.varLoad = true;
     this.getProjects();
      

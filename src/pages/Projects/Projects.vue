@@ -29,8 +29,8 @@
 </template>
 
 <script>
-import Datatable from './Datatable.vue';
-import Pagination from './Pagination.vue';
+import Datatable from '@/components/Datatable/Datatable';
+import Pagination from '@/components/Pagination/Pagination';
 export default {
     components: { datatable: Datatable, pagination: Pagination },
     created() {

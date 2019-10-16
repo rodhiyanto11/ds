@@ -21,3 +21,7 @@ table
 
 https://www.npmjs.com/package/vue-tables-2
 example table https://jsfiddle.net/matfish2/jfa5t4sm/
+
+
+ubah navlink active 
+ada di scss navlink a.router-link-active

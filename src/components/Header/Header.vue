@@ -4,7 +4,7 @@
   }
 </style>
 <template>
-  <b-navbar class="header d-print-none">
+  <b-navbar class="header d-print-none" v-bind:style="{background : changeBackgroundLayout}">
     <b-nav>
       <b-nav-item>
         <a class="d-md-down-none px-2" href="#" @click="toggleSidebarMethod" id="barsTooltip">
@@ -20,18 +20,18 @@
           <i class="la la-bars la-lg d-sm-down-none ml-4 nav-i" />
         </a>
       </b-nav-item>
-      <b-nav-item class="d-md-down-none">
+      <!-- <b-nav-item class="d-md-down-none">
         <a href="#" class="px-2">
           <i class="la la-refresh la-lg nav-i" />
         </a>
-      </b-nav-item>
-      <b-nav-item class="d-md-down-none">
+      </b-nav-item> -->
+      <!-- <b-nav-item class="d-md-down-none">
         <a href="#" class="px-2">
           <i class="la la-times la-lg nav-i" />
         </a>
-      </b-nav-item>
+      </b-nav-item> -->
     </b-nav>
-    <b-nav>
+    <!-- <b-nav>
       <b-form class="d-sm-down-none ml-5" inline>
         <b-form-group>
           <b-input-group class="input-group-no-border">
@@ -42,7 +42,7 @@
           </b-input-group>
         </b-form-group>
       </b-form>
-    </b-nav>
+    </b-nav> -->
     <a  class="navbarBrand d-md-none">
       <i class="fa fa-circle text-gray mr-n-sm" />
       <i class="fa fa-circle text-warning" />
@@ -62,12 +62,22 @@
           <span class="avatar thumb-sm float-left mr-2">
             <img class="rounded-circle" src="../../assets/people/a5.jpg" alt="..." />
           </span>
-          <span class="small">Philip <span class="fw-semi-bold nav-i">Smith</span></span>
-          <span class="ml-1 circle bg-warning text-white fw-bold">13</span>
+          <span class="small" style="color:white;">Philip <span class="fw-semi-bold nav-i">Smith</span></span>
+          <!-- <span class="ml-1 circle bg-warning text-white fw-bold">13</span> -->
         </template>
-        <Notifications />
+         <b-dropdown-item><i class="la la-user" /> My Account</b-dropdown-item>
+        <b-dropdown-divider />
+        <b-dropdown-item>Calendar</b-dropdown-item>
+        <b-dropdown-item>
+          Inbox &nbsp;&nbsp;<b-badge variant="danger" pill class="animated bounceIn">9</b-badge>
+        </b-dropdown-item>
+        <b-dropdown-divider />
+        <b-dropdown-item-button @click="logout">
+          <i class="la la-sign-out" /> Log Out
+        </b-dropdown-item-button>
+        <!-- <Notifications /> -->
       </b-nav-item-dropdown>
-      <b-nav-item-dropdown class="settingsDropdown d-sm-down-none nav-i" no-caret right>
+      <!-- <b-nav-item-dropdown class="settingsDropdown d-sm-down-none nav-i" no-caret right>
         <template slot="button-content">
           <i class="la la-cog px-2 nav-i" />
         </template>
@@ -81,8 +91,8 @@
         <b-dropdown-item-button @click="logout">
           <i class="la la-sign-out" /> Log Out
         </b-dropdown-item-button>
-      </b-nav-item-dropdown>
-      <b-nav-item>
+      </b-nav-item-dropdown> -->
+      <!-- <b-nav-item>
         <a class="d-sm-down-none px-2" id="toggle-chat" href="#" @click="toggleChat">
           <i class="la la-globe nav-i" />
         </a>
@@ -101,7 +111,7 @@
             </p>
           </div>
         </div>
-      </b-nav-item>
+      </b-nav-item> -->
       <b-nav-item class="fs-lg d-md-none">
         <a href="#" @click="toggleChat">
           <span class="rounded rounded-lg bg-gray text-white"><i class="la la-globe" /></span>
@@ -118,12 +128,21 @@ import Notifications from '@/components/Notifications/Notifications';
 
 export default {
   name: 'Headed',
+  data (){
+    return {
+      isCompany : '',
+    }
+  },
   components: { Notifications },
   computed: {
     ...mapState('layout', {
       sidebarClose: state => state.sidebarClose,
       sidebarStatic: state => state.sidebarStatic,
     }),
+    changeBackgroundLayout : function(){
+      return window.localStorage.getItem('color');
+    },
+    
   },
   methods: {
     ...mapActions('layout', ['toggleSidebar', 'toggleChat', 'switchSidebar', 'changeSidebarActive']),
@@ -151,10 +170,14 @@ export default {
     },
     logout() {
       window.localStorage.setItem('authenticated', false);
-      this.$router.push('/login');
+      window.localStorage.setItem('token', false);
+      // console.log(window.localStorage.getItem('company'));
+      this.$router.push('/login/'+localStorage.getItem('company'));
+      
     },
   },
   created() {
+    //console.log(localStorage.getItem('company'));
     if (window.innerWidth > 576) {
       setTimeout(() => {
         const $chatNotification = $('#chat-notification');

@@ -200,7 +200,36 @@
 .table-bordered th {
   background-color: $gray-300;
 }
+.btn-app-cancel{
+  background-color: #ee4035; 
+  color : whitesmoke;
+}
+.btn-app-cancel:hover{
+  background-color:#d32f2f ;
+  color : whitesmoke;
+}
+.btn-app-save{
+  background-color: #0277bd ;
+  color : whitesmoke;
+}
+.btn-app-save:hover{
+  background-color: #01579b;
+  color : whitesmoke;
+}
 
+.btn-app-update{
+  background-color: #f37736;
+  color : whitesmoke;
+}
+
+.btn-app-update:hover{
+  background-color: #ef6c00;
+  color : whitesmoke;
+}
+.btn-app-update:hover{
+  
+  color : whitesmoke;
+}
 table > thead > tr > th {
   border-top: none !important;
   border-bottom-width: 1px !important;
@@ -356,3 +385,4 @@ table > thead > tr > th {
   }
   
 }
+

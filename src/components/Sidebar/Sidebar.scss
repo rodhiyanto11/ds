@@ -116,7 +116,7 @@
   }
 }
 .img-open{
-  width: 100px;
+  width: 60%;
 }
 .sidebarClose {
   .sidebarLabels > li > a > i {
@@ -134,6 +134,9 @@
   .img-close{
     display: none;
   }
+  .logo {
+    width: 100%;
+  }
 }
 .sidebarOpened {
   .img-open{
@@ -146,6 +149,7 @@
   }
   
 }
+
 .sidebarClose{
   .img-open{
     display: none;

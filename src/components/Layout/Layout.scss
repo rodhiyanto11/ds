@@ -43,11 +43,11 @@
   // 20px for footer height
   padding: $content-padding $content-padding ($content-padding + 20px);
   //background-color: $body-bg;
-  background: #f85032; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f85032, #e73827); /* Chrome 10-25, Safari 5.1-6 */
-  //background: linear-gradient(to right, #f85032, #e73827); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient( red 50%, whitesmoke 40%);
-
+  // background: #f85032; /* fallback for old browsers */
+  // background: -webkit-linear-gradient(to right, #f85032, #e73827); /* Chrome 10-25, Safari 5.1-6 */
+  // //background: linear-gradient(to right, #f85032, #e73827); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+   background: linear-gradient( #ee4035 50%, whitesmoke 40%);
+  //background-color: ee4035;
   @media (max-width: breakpoint-max(sm)) {
     padding: 20px 15px;
   }

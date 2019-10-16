@@ -1,9 +1,9 @@
 @import '../../styles/app';
-
+ 
 .header {
   z-index: 100;
   padding: 7px 1.85rem 0;
-  background: red;
+  background:#ee4035;
   
   @include media-breakpoint-down(md) {
     padding: 7px 10px;
@@ -63,7 +63,9 @@
     border-right: 5px solid transparent;
     border-bottom: 5px solid #343434;
   }
-
+  .dropdown-toggle-no-caret { 
+    color:white;
+  }
   .chatNotificationInner {
     min-width: 120px;
     padding: 8px;
@@ -107,6 +109,7 @@
 
   i {
     font-size: 10px;
+    
   }
 }
 

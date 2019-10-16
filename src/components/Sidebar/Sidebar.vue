@@ -5,8 +5,8 @@
     @mouseleave="sidebarMouseLeave"
   >
     <header class="logo">
-      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar thumb float-center"><img data-v-741978ef="" src="/img/a5.84f014f0.jpg" alt="..." class="rounded-circle img-close"></span></router-link>
-      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar float-center"><img data-v-741978ef="" src="/img/a5.84f014f0.jpg" alt="..." class="rounded-circle img-open"></span></router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar thumb float-center"><img v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class="rounded-circle img-close"></span></router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar float-center"><img  v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class="rounded-circle img-open"></span></router-link>
     </header>
     <ul class="nav">
       <NavLink
@@ -24,15 +24,15 @@
         isHeader
       />
       <NavLink
-        header="Typography"
-        link="/app/typography"
+        header="Analytics"
+        link="/app/Analytics-1"
         iconName="flaticon-list"
-        index="typography"
+        index="analytics"
         isHeader
       />
       <NavLink
         header="Tables Basic"
-        link="/app/tables"
+        link="/app/Tables"
         iconName="flaticon-equal-1"
         index="tables"
         isHeader
@@ -122,6 +122,7 @@ import NavLink from './NavLink/NavLink';
 
 export default {
   name: 'Sidebar',
+  logo : '',
   components: { NavLink },
   data() {
     return {
@@ -164,7 +165,10 @@ export default {
     },
   },
   created() {
+    // console.log(localStorage.getItem('logo'));
+    // this.logo = localStorage.getItem('logo');
     this.setActiveByRoute();
+
   },
   computed: {
     ...mapState('layout', {
@@ -172,6 +176,10 @@ export default {
       sidebarOpened: state => !state.sidebarClose,
       activeItem: state => state.sidebarActiveElement,
     }),
+    changeLogo : function(){
+      //this.logo = localStorage.getItem('logo');
+      return localStorage.getItem('logo');
+    }
   },
 };
 </script>

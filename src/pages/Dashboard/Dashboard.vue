@@ -2,11 +2,7 @@
 
   <div>
     <loading :showloading="varLoad" />
-    <!-- <vue-element-loading :active="showloading" is-full-screen>
-      <b-spinner variant="danger" type="grow" label="Spinning"></b-spinner>
-      <br/>
-      <span>Loading...</span>
-    </vue-element-loading> -->
+    <vue-headful :title ="name"/>
     <b-breadcrumb>
       <b-breadcrumb-item>YOU ARE HERE</b-breadcrumb-item>
       <b-breadcrumb-item active>Dashboard</b-breadcrumb-item>
@@ -261,14 +257,15 @@ import 'imports-loader?jQuery=jquery,this=>window!flot';
 import 'imports-loader?jQuery=jquery,this=>window!flot/jquery.flot.pie';
 import Widget from '@/components/Widget/Widget';
 import Loading from '@/components/Loading/Loading';
-
+import vueHeadful from 'vue-headful';
 export default {
   
   name: 'Dashboard',
-  components: { Widget,Loading },
+  components: { Widget,Loading,vueHeadful },
   data() {
     return {
-      varLoad : true,
+      name : 'Dashboard',
+      varLoad : false,
       table: [{
         id: 0,
         name: 'Mark Otto',
@@ -372,9 +369,16 @@ export default {
      
   },
   created (){
-    setTimeout(() => {
-       this.varLoad = false;
-      }, 2500);
+    //console.log(1)
+    if(localStorage.getItem('fullname') !== 'false'){
+         this.$snotify.success('Welcome '+localStorage.getItem('fullname'));
+         localStorage.setItem("fullname",false);
+       }
+    // setTimeout(() => {
+    //    this.varLoad = false;
+       
+       
+    //   }, 2500);
   }
 };
 </script>

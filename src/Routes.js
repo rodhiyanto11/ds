@@ -6,11 +6,11 @@ import Login from '@/pages/Login/Login';
 
 import ErrorPage from '@/pages/Error/Error';
 // Core
-import TypographyPage from '@/pages/Typography/Typography';
+import Analytics from '@/pages/Analytics/Analytics';
 
 // Tables
-import TablesBasicPage from '@/pages/Tables/Basic';
-
+// import TablesBasicPage from '@ /pages/Tables/Basic';
+import Role from './Role';
 // Maps
 import GoogleMapPage from '@/pages/Maps/Google';
 
@@ -24,16 +24,19 @@ import ChartsPage from '@/pages/Charts/Charts';
 import IconsPage from '@/pages/Icons/Icons';
 import NotificationsPage from '@/pages/Notifications/Notifications';
 //Form
+//user
 import Users from '@/pages/Users/Users';
+import UsersFrom from '@/pages/Users/Form';
+import UsersDashboard from '@/pages/Users/Dashboard';
+//
 
-import Create from '@/pages/Users/Create';
 Vue.use(Router);
 
 export default new Router({
   mode  : 'history',
   routes: [
     {
-      path: '/login',
+      path: '/login/:company',
       name: 'Login',
       component: Login,
     },
@@ -52,11 +55,11 @@ export default new Router({
           name: 'AnalyticsPage',
           component: AnalyticsPage,
         },
-        {
-          path: 'typography',
-          name: 'TypographyPage',
-          component: TypographyPage,
-        },
+        // {
+        //   path: 'analytics',
+        //   name: 'Analytics',
+        //   component: Analytics,
+        // },
         {
           path: 'components/icons',
           name: 'IconsPage',
@@ -72,28 +75,18 @@ export default new Router({
           name: 'ChartsPage',
           component: ChartsPage,
         },
-        {
-          path: 'tables',
-          name: 'TablesBasicPage',
-          component: TablesBasicPage,
-        },
+        ...Role,
+        // {
+        //   path: 'tables',
+        //   name: 'TablesBasicPage',
+        //   component: TablesBasicPage,
+        // },
         {
           path: 'components/maps',
           name: 'GoogleMapPage',
           component: GoogleMapPage,
         },
-        {
-          path : 'users',
-          name : 'Users',
-          component : Users,
-          children: [
-            {
-              path: 'create',
-              name: 'usercreate',
-              component: Create,
-            }
-          ]
-        },
+        
       ],
     },
   ],

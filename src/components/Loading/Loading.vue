@@ -1,5 +1,5 @@
 <template>
-    <vue-element-loading :active="showloading" is-full-screen>
+    <vue-element-loading :active="showloading" opacity="1" is-full-screen>
         <b-spinner variant="danger" type="grow" label="Spinning"></b-spinner>
         <br/>
         <span>Please wait...</span>
