@@ -1,7 +1,7 @@
 <template>
   <div>
     <center>
-      <h1 class="page-title">USER {{$route.params.mode}}</h1>
+      <h1 class="page-title">Menus {{$route.params.mode}}</h1>
     </center>
     <div class="card-body">
 

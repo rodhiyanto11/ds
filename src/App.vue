@@ -6,9 +6,7 @@
 
 <script>
 
-import Users from '@/pages/Users/Users';
-import UsersFrom from '@/pages/Users/Form';
-import UserDashboard from '@/pages/Users/Dashboard';
+
 export default {
   data (){
     return {
@@ -35,16 +33,11 @@ export default {
        this.$router.push('/login/'+this.$route.params.company);
      }
       
-    // }else if(!window.localStorage.getItem('authenticated') || !window.localStorage.getItem('token')){
-    //   //console.log(2);
-    //   this.$router.push('/app/dashboard');
-    // }
     }
       },
   },
   name: 'App',
   created() {
-    console.log(1);
     this.company = this.$route.params.company;
     if(this.company === undefined){
       this.cekCompany = 'N';
@@ -62,11 +55,11 @@ export default {
 
        this.$router.push('/login/'+this.$route.params.company);
      }
-      
-    // }else if(!window.localStorage.getItem('authenticated') || !window.localStorage.getItem('token')){
-    //   //console.log(2);
-    //   this.$router.push('/app/dashboard');
-    // }
+
+    }
+    const currentPath = this.$router.history.current.path;
+    if (currentPath === '/' || currentPath === '/app') {
+      this.$router.push('/app/dashboard');
     }
     }
 };

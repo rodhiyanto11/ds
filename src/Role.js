@@ -1,15 +1,13 @@
 import axios from 'axios';
-// console.log(localStorage.getItem('token'));
-// console.log(window.localStorage.getItem('base_url'))
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.baseURL = window.localStorage.getItem('base_url');
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
 axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token');
 axios.defaults.withCredentials = true;
-const ar = [];
+const setmenus = [];
 
-let res = axios.get('http://localhost:8000/api/getcompanies?menu=true');
+let res = axios.get('http://127.0.0.1:8000/api/getcompanies?menu=true');
 
 res.then((result) => {
     window.localStorage.setItem('menus', JSON.stringify(result.data.data));
@@ -19,12 +17,12 @@ var ea = JSON.parse(window.localStorage.getItem('menus'));
 
 for (var i = 0; i < ea.length; i++) {
     
-    let componentname           = require(`@/pages/${ea[i].menu_component}.vue`).default;
+    let componentname               = require(`@/pages/${ea[i].menu_component}.vue`).default;
    
     if(ea[i].menu_app == 1){
         let componentchildform      = require(`@/pages/${ea[i].menu_name}/Form.vue`).default;
         let componentchilddashboard = require(`@/pages/${ea[i].menu_name}/Dashboard.vue`).default;
-        ar.push(
+        setmenus.push(
             {
                 path: ea[i].menu_controller, 
                 component : componentname ,
@@ -46,7 +44,7 @@ for (var i = 0; i < ea.length; i++) {
             }
         )
     }else if(ea[i].menu_app == 2){
-        ar.push(
+        setmenus.push(
             {
                 path: ea[i].menu_controller+'-:analyticsid', 
                 component : componentname ,
@@ -54,7 +52,7 @@ for (var i = 0; i < ea.length; i++) {
             }
         )
     }else{
-        ar.push(
+        setmenus.push(
             {
                 path: ea[i].menu_controller, 
                 component : componentname ,
@@ -65,6 +63,6 @@ for (var i = 0; i < ea.length; i++) {
     
 }
 // eslint-disable-next-line no-console
-console.log(ar);
+console.log(setmenus);
 
-export default ar;
+export default setmenus;

@@ -23,6 +23,13 @@
         index="users"
         isHeader
       />
+       <NavLink
+        header="Menus"
+        link="/app/menus"
+        iconName="flaticon-list"
+        index="menus"
+        isHeader
+      />
       <NavLink
         header="Analytics"
         link="/app/Analytics-1"
@@ -50,7 +57,7 @@
         link="/app/components"
         iconName="flaticon-network"
         index="components"
-        :childrenLinks="[
+        :childrenLinks="[ 
           { header: 'Charts', link: '/app/components/charts' },
           { header: 'Icons', link: '/app/components/icons' },
           { header: 'Maps', link: '/app/components/maps' },

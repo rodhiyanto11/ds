@@ -25,9 +25,9 @@ import IconsPage from '@/pages/Icons/Icons';
 import NotificationsPage from '@/pages/Notifications/Notifications';
 //Form
 //user
-import Users from '@/pages/Users/Users';
-import UsersFrom from '@/pages/Users/Form';
-import UsersDashboard from '@/pages/Users/Dashboard';
+// import Users from '@/pages/Users/Users';
+// import UsersFrom from '@/pages/Users/Form';
+// import UsersDashboard from '@/pages/Users/Dashboard';
 //
 
 Vue.use(Router);
@@ -72,7 +72,7 @@ export default new Router({
         },
         {
           path: 'components/charts',
-          name: 'ChartsPage',
+          name: 'ChartsPage', 
           component: ChartsPage,
         },
         ...Role,

@@ -4,11 +4,9 @@ import 'expose-loader?jQuery!jquery' // eslint-disable-line
 import 'expose-loader?$!jquery' // eslint-disable-line
 import Vue from 'vue';
 import Axios from 'axios';
-
 import BootstrapVue from 'bootstrap-vue';
 import * as VueGoogleMaps from 'vue2-google-maps';
 import VueTouch from 'vue-touch';
-
 import Trend from 'vuetrend';
 import tableau from 'vue-tableau';
 import store from './store';
@@ -41,8 +39,8 @@ Vue.use(VueGoogleMaps, {
 
 Vue.config.productionTip = false;
 /*\ Axios Setup \*/
-window.localStorage.setItem('base_url',"http://localhost:8000/");
-Axios.defaults.baseURL = "http://localhost:8000/"
+window.localStorage.setItem('base_url',"http://127.0.0.1:8000/");
+Axios.defaults.baseURL = "http://127.0.0.1:8000/"
 Axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 Axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 Axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';

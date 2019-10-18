@@ -29,8 +29,16 @@
             required type="password" name="password" placeholder="Password" />
           </div>
           <div class="clearfix">
-            <div class="btn-toolbar float-right">
-              <b-button type="submit" size="sm" variant="inverse">Login</b-button>
+            <div>
+              <center>
+                <vue-recaptcha 
+                 @verify="onVerify"
+                 @expired="onExpired"
+                 sitekey="6Lf43q8UAAAAAFuLQ-RZnAcoJ7vKNa0d-Ist2X-a"></vue-recaptcha>
+              </center>
+            </div>
+            <div class="btn-toolbar">
+              <b-button type="submit" block variant="inverse">Login</b-button>
             </div>
           </div>
          
@@ -47,10 +55,11 @@
 
 import Widget from '@/components/Widget/Widget';
 import Loading from '@/components/Loading/Loading';
+import VueRecaptcha from 'vue-recaptcha';
 import vueHeadful from 'vue-headful'
 export default {
   name: 'LoginPage',
-  components: { Widget,Loading, vueHeadful},
+  components: { Widget,Loading, vueHeadful,VueRecaptcha},
   data() {
     return {
       name : "Login",
@@ -60,6 +69,7 @@ export default {
       logo : '',
       username : '',
       password : '',
+      verify : false,
     };
   },
   computed : {
@@ -83,23 +93,46 @@ export default {
    
   },
   methods: {
+    onSubmit: function () {
+      this.$refs.invisibleRecaptcha.execute()
+    },
+    onVerify: function (response) {
+      if(response.length > 0 && response){
+        this.verify = true;
+      }
+      
+      console.log('Verify: ' + response)
+    },
+    onExpired: function () {
+      console.log('Expired')
+    },
+    resetRecaptcha () {
+      this.$refs.recaptcha.reset() // Direct call reset method
+    },
     login : function(){
-      this.varLoad = true;
-      this.$store.dispatch("LOGIN",{
-        email : this.username,
-        password : this.password
-      })
-      .then((response) => {
-       let res = response;
-       localStorage.setItem('userdetail',res);
-       //localStorage.setItem('color',this.color);
-        this.$router.push('/app/dashboard');
-        this.varLoad = false;
-      })
-      .catch(error=>{
-        this.varLoad = false;
-        this.$snotify.error(error);
-      });
+      if(this.verify == true){
+        //console.log(1);
+        this.varLoad = true;
+        this.$store.dispatch("LOGIN",{
+          email : this.username,
+          password : this.password
+        })
+        .then((response) => {
+        let res = response;
+        localStorage.setItem('userdetail',res);
+        //localStorage.setItem('color',this.color);
+          this.$router.push('/app/dashboard');
+          this.varLoad = false;
+        })
+        .catch(error=>{
+          this.varLoad = false;
+          this.$snotify.error(error);
+        });
+      }
+      else{
+       this.$snotify.error("Please Verify reCaptcha");
+      }
+      
     },
     setBackground: function(){
      
