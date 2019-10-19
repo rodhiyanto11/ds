@@ -103,7 +103,7 @@
                 
               <div class="tableFilters form-inline ">
                 <div class="col-md-2 col-xs-2">
-                  <router-link class="btn btn-outline-dark" to='/app/users/form/Create/new'>Create Menu</router-link>
+                  <router-link class="btn btn-outline-dark" to='/app/menus/form/Create/new'>Create Menu</router-link>
                 </div>
                 <div class="col-md-8 col-xs-2 float-right">
                         <div class="input-group">
@@ -167,7 +167,7 @@ import Loading from '@/components/Loading/Loading';
 import vueHeadful from 'vue-headful';
 export default {
 
-  name: 'Dashboard',
+  name: 'MenuDashboard',
   components: { Widget,Datatable: Datatable, Pagination: Pagination , Loading, vueHeadful},
  data() {
         let sortOrders = {};

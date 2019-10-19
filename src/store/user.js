@@ -17,6 +17,7 @@ export default{
                         localStorage.setItem('token',data.token);
                         
                         window.localStorage.setItem('authenticated','1');
+                        localStorage.setItem('division_id',data.data.division_id);
                         localStorage.setItem('fullname',data.data.name);
                         //localStorage.setItem('commit',commit);
                         //console.log(localStorage.getItem('fullname'));

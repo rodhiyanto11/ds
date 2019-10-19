@@ -39,22 +39,46 @@ import Header from '@/components/Header/Header';
 import Chat from '@/components/Chat/Chat';
 import Helper from '@/components/Helper/Helper';
 import vueHeadful from 'vue-headful';
+
 import './Layout.scss';
+//import Role from 'Role.js';
 // import Router from './role.js';
 // import Anal from '@/pages/Analytics/Analytics';
+function guard(to, from, next){
+  if(1===0) {
+      // or however you store your logged in state
+      next('/login'); // allow to enter route
+  } else{
+      next('/app'); // go to '/login';
+  }
+}
 export default {
   props : ['title'],
   name: 'Layout',
+  // beforeRouteEnter (to, from, next) {
+  //   console.log(window.localStorage.getItem('authenticated'));
+  //  if(window.localStorage.getItem('authenticated') == true) {
+  //       // or however you store your logged in state
+  //       next('/app/dashboard'); // allow to enter route
+  //   } else{
+  //       next('/login/'+window.localStorage.getItem('company')); // go to '/login';
+  //   }
+  // },
   components: { Sidebar, Header, Chat, Helper ,vueHeadful},
   data (){
     return {
       backgroundcolor : '',
     }
   },
+  
   methods: {
     ...mapActions(
       'layout', ['switchSidebar', 'handleSwipe', 'changeSidebarActive'],
     ),
+    // onCreated(){
+    //   return Role;
+    // }
+    
   },
   computed: {
     ...mapState('layout', {
@@ -71,9 +95,15 @@ export default {
        //}
     }
   },
-  
+  watch: {
+            '$route' (to, from) {
+              
+                //on route change re run: onCreated
+               // this.onCreated();
+            },
+  },
   created() {
-      
+       //this.onCreated();
       const staticSidebar = JSON.parse(localStorage.getItem('sidebarStatic'));
       if (staticSidebar) {
         this.$store.state.layout.sidebarStatic = true;

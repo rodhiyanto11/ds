@@ -1,6 +1,6 @@
 <template>
   
-  <router-view ></router-view>
+  <router-view :key="$router.fullPath"></router-view>
   
 </template>
 
@@ -28,9 +28,11 @@ export default {
      if(this.cekCompany === 'N'){
        
         this.$router.push('/login/default');
+        location.reload();
      }else{
 
        this.$router.push('/login/'+this.$route.params.company);
+       location.reload();
      }
       
     }

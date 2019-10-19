@@ -8,8 +8,8 @@
       
       <Widget class="mx-auto" customHeader>
        <center>
-          <img :src="require(`@/assets/whitelabel/${changeLogo}`)" style="width:200px;height:150px;">
-          <!-- <img v-bind:src="require('@/assets/whitelabel/'+changeLogo+'')" style="width:200px;height:150px;"> -->
+          <!-- <img :src="require(`@/assets/whitelabel/${changeLogo}`)" style="width:200px;height:150px;"> -->
+          <img v-bind:src="require('@/assets/whitelabel/'+changeLogo+'')" style="width:200px;height:150px;">
 
         </center>
         <p class="text-muted mb-0 mt fs-sm">
@@ -33,7 +33,6 @@
               <center>
                 <vue-recaptcha 
                  @verify="onVerify"
-                 @expired="onExpired"
                  sitekey="6Lf43q8UAAAAAFuLQ-RZnAcoJ7vKNa0d-Ist2X-a"></vue-recaptcha>
               </center>
             </div>
@@ -70,6 +69,7 @@ export default {
       username : '',
       password : '',
       verify : false,
+      expired : false,
     };
   },
   computed : {
@@ -100,15 +100,8 @@ export default {
       if(response.length > 0 && response){
         this.verify = true;
       }
-      
-      console.log('Verify: ' + response)
     },
-    onExpired: function () {
-      console.log('Expired')
-    },
-    resetRecaptcha () {
-      this.$refs.recaptcha.reset() // Direct call reset method
-    },
+    
     login : function(){
       if(this.verify == true){
         //console.log(1);
@@ -123,6 +116,7 @@ export default {
         //localStorage.setItem('color',this.color);
           this.$router.push('/app/dashboard');
           this.varLoad = false;
+          location.reload();
         })
         .catch(error=>{
           this.varLoad = false;
@@ -163,6 +157,7 @@ export default {
     }
    
     if (window.localStorage.getItem('authenticated') !== 'false'  || window.localStorage.getItem('token') !== 'false' ) {
+      
       this.$router.push('/app/dashboard');
     }
     
