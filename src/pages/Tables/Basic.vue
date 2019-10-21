@@ -11,6 +11,8 @@
           title="<h5>Table <span class='fw-semi-bold'>Styles</span></h5>"
           customHeader settings close
         >
+        <div id="app"></div>
+        <div ref="tableau"></div>
           <div class="table-resposive">
             <table class="table">
               <thead>
@@ -441,6 +443,8 @@ export default {
   components: { Widget },
   data() {
     return {
+      msg: 'Hello Tableau Fans!',url: "http://public.tableau.com/views/RegionalSampleWorkbook/Storms",
+      options: {hideTabs: true},
       tableStyles: [
         {
           id: 1,
@@ -528,6 +532,7 @@ export default {
     };
   },
   methods: {
+    initViz: function () {let viz = new tableau.Viz(this.$refs.tableau, this.url, this.options);},
     parseDate(date) {
       const dateSet = date.toDateString().split(' ');
       return `${date.toLocaleString('en-us', { month: 'long' })} ${dateSet[2]}, ${dateSet[3]}`;
@@ -563,6 +568,7 @@ export default {
     },
   },
   mounted() {
+    this.initViz()
     this.initCharts();
   },
 };

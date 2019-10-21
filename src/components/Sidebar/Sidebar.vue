@@ -5,8 +5,8 @@
     @mouseleave="sidebarMouseLeave"
   >
     <header class="logo">
-      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar thumb float-center"><img v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class="rounded-circle img-close"></span></router-link>
-      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar float-center"><img  v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class="rounded-circle img-open"></span></router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar thumb float-center"><img v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class=" img-close"></span></router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar float-center"><img  v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class=" img-open"></span></router-link>
     </header>
     <ul class="nav">
       <NavLink
@@ -33,6 +33,13 @@
       <NavLink
         header="Analytics"
         link="/app/Analytics-1"
+        iconName="flaticon-list"
+        index="analytics"
+        isHeader
+      />
+      <NavLink
+        header="Analytics"
+        link="/app/Analytics-2"
         iconName="flaticon-list"
         index="analytics"
         isHeader

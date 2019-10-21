@@ -32,6 +32,22 @@ import NotificationsPage from '@/pages/Notifications/Notifications';
 
 Vue.use(Router);
 
+function guard(to, from, next){
+  if(window.localStorage.getItem('authenticated') === 1  || window.localStorage.getItem('token') !== 'false' ) {
+      next(); 
+  } else{
+      next('login/'+window.localStorage.getItem('company')); // go to '/login';
+  }
+}
+function guardLogin(to, from, next){
+  if(window.localStorage.getItem('authenticated') === 1  || window.localStorage.getItem('token') !== 'false' ) {
+      next('app/dashboard'); 
+  } else{
+      next(); // go to '/login';
+  }
+}
+
+
 export default new Router({
   mode  : 'history',
   routes: [
@@ -39,6 +55,7 @@ export default new Router({
       path: '/login/:company',
       name: 'Login',
       component: Login,
+      beforeEnter : guardLogin
     },
     {
       path: '/error',
@@ -48,6 +65,7 @@ export default new Router({
     {
       path: '/app',
       name: 'Layout',
+      beforeEnter: guard,
       component: Layout,
       children: [
         {

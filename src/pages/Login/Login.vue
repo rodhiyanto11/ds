@@ -142,25 +142,62 @@ export default {
           this.$snotify.error(errors);
         })
         return this.color;
+    },
+    setCompany : function(){
+      console.log('ini login')
+      this.company = this.$route.params.company;
+      if(this.company === undefined){
+          this.cekCompany = 'N';
+        }else{
+          window.localStorage.setItem('company',this.$route.params.company);
+          this.cekCompany = 'Y';
+        } 
     }
     
   },
-  
+  watch : {
+     '$route' (to, from) {
+              this.setBackground();
+              this.setCompany();
+              console.log('ini login')
+      //  this.company = this.$route.params.company;
+      //   if(this.company === undefined){
+      //     this.cekCompany = 'N';
+      //   }else{
+      //     window.localStorage.setItem('company',this.$route.params.company);
+      //     this.cekCompany = 'Y';
+      //   } 
+            // if (window.localStorage.getItem('authenticated') === 'false' || window.localStorage.getItem('token') === 'false') {
+        
+        // if(this.cekCompany === 'N'){
+          
+        //   // this.$router.push('/login/default');
+        //     location.reload();
+        // }else{
+
+        //   //this.$router.push('/login/'+this.$route.params.company);
+        //   location.reload();
+        // }
+      
+    // }
+      },
+            
+  },
   created() {
     
-    if(window.localStorage.getItem('authenticated') == 'true'){
-      console.log(1);
-    }else{
-      console.log(window.localStorage.getItem('authenticated') == 'false' ? 'oke' : 'gagal')
-      console.log(window.localStorage.getItem('token') == 'false' ? 'oke' : 'gagal')
-      console.log(2);
-    }
+    // if(window.localStorage.getItem('authenticated') == 'true'){
+    //  // console.log(1);
+    // }else{
+    //   console.log(window.localStorage.getItem('authenticated') == 'false' ? 'oke' : 'gagal')
+    //   console.log(window.localStorage.getItem('token') == 'false' ? 'oke' : 'gagal')
+    //   console.log(2);
+    // }
    
-    if (window.localStorage.getItem('authenticated') !== 'false'  || window.localStorage.getItem('token') !== 'false' ) {
+    // if (window.localStorage.getItem('authenticated') !== 'false'  || window.localStorage.getItem('token') !== 'false' ) {
       
-      this.$router.push('/app/dashboard');
-    }
-    
+    //   this.$router.push('/app/dashboard');
+    // }
+    this.setCompany();
     this.setBackground();
   },
 };
