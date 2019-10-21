@@ -161,7 +161,7 @@ export default {
       if (this.sidebarStatic) {
         this.toggleSidebar();
         this.changeSidebarActive(null);
-      } else {
+      } else { 
         this.toggleSidebar();
         const paths = this.$route.fullPath.split('/');
         paths.pop();
@@ -172,7 +172,7 @@ export default {
       window.localStorage.setItem('authenticated', false);
       window.localStorage.setItem('token', false);
       // console.log(window.localStorage.getItem('company'));
-      this.$router.push('/login/'+localStorage.getItem('company'));
+      this.$router.push('login/'+localStorage.getItem('company'));
       
     },
   },

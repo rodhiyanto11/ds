@@ -144,9 +144,11 @@ export default {
         return this.color;
     },
     setCompany : function(){
-      console.log('ini login')
       this.company = this.$route.params.company;
-      if(this.company === undefined){
+      if(this.company === undefined || this.company == 'null'){
+        console.log(2);
+        alert('invalid url');
+        window.location.href = "http://www.google.com";
           this.cekCompany = 'N';
         }else{
           window.localStorage.setItem('company',this.$route.params.company);
@@ -159,7 +161,6 @@ export default {
      '$route' (to, from) {
               this.setBackground();
               this.setCompany();
-              console.log('ini login')
       //  this.company = this.$route.params.company;
       //   if(this.company === undefined){
       //     this.cekCompany = 'N';

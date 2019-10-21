@@ -31,16 +31,17 @@ import NotificationsPage from '@/pages/Notifications/Notifications';
 //
 
 Vue.use(Router);
-
+console.log(window.localStorage.getItem('authenticated'));
+console.log(window.localStorage.getItem('token'));
 function guard(to, from, next){
-  if(window.localStorage.getItem('authenticated') === 1  || window.localStorage.getItem('token') !== 'false' ) {
+  if(window.localStorage.getItem('authenticated') !== 'false'  || window.localStorage.getItem('token') !== 'false' ) {
       next(); 
   } else{
       next('login/'+window.localStorage.getItem('company')); // go to '/login';
   }
 }
 function guardLogin(to, from, next){
-  if(window.localStorage.getItem('authenticated') === 1  || window.localStorage.getItem('token') !== 'false' ) {
+  if(window.localStorage.getItem('authenticated') !== 'false' || window.localStorage.getItem('token') !== 'false' ) {
       next('app/dashboard'); 
   } else{
       next(); // go to '/login';
