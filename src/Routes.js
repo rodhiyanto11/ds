@@ -31,8 +31,7 @@ import NotificationsPage from '@/pages/Notifications/Notifications';
 //
 
 Vue.use(Router);
-console.log(window.localStorage.getItem('authenticated'));
-console.log(window.localStorage.getItem('token'));
+
 function guard(to, from, next){
   if(window.localStorage.getItem('authenticated') !== 'false'  || window.localStorage.getItem('token') !== 'false' ) {
       next(); 

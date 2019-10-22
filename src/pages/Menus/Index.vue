@@ -21,11 +21,11 @@
 
 
 export default {
+  props : ['title'],
   name: 'Dashboard',
   created(){
     this.title = this.$route.params.mode;
-    //console.log(this.$router.options.routes)   
-    // 
+    
     
   }
 }

@@ -31,7 +31,7 @@ if(window.localStorage.getItem('menus') !== null){
                     redirect: '/app/'+ea[i].menu_path+'/dashboard',
                     children: [
                         {
-                          path: 'form/:mode/:id',
+                          path: 'action/:mode/:id',
                           name: ea[i].menu_name+'From',
                           component:  componentchildform,
                         },

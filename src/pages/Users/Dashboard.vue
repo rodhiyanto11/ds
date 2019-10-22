@@ -103,7 +103,7 @@
                 
               <div class="tableFilters form-inline ">
                 <div class="col-md-2 col-xs-2">
-                  <router-link class="btn btn-outline-dark" to='/app/users/form/Create/new'>Create Account</router-link>
+                  <router-link class="btn btn-outline-dark" to='/app/users/action/Create/new'>Create Account</router-link>
                 </div>
                 <div class="col-md-8 col-xs-2 float-right">
                         <div class="input-group">
@@ -132,9 +132,9 @@
                   <td>{{project.id}}</td>
                   <td>{{project.email}}</td>
                   <td>
-                    <router-link :to="'/app/users/form/Update/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
+                    <router-link :to="'/app/users/action/Update/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
                         &nbsp;
-                    <router-link :to="'/app/users/form/Delete/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
+                    <router-link :to="'/app/users/action/Delete/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
                   </td>
 
                 </tr>

@@ -171,13 +171,13 @@ export default {
     logout() {
       window.localStorage.setItem('authenticated', false);
       window.localStorage.setItem('token', false);
-      // console.log(window.localStorage.getItem('company'));
-      this.$router.push('login/'+localStorage.getItem('company'));
+    
+      this.$router.push('/login/'+localStorage.getItem('company'));
       
     },
   },
   created() {
-    //console.log(localStorage.getItem('company'));
+  
     if (window.innerWidth > 576) {
       setTimeout(() => {
         const $chatNotification = $('#chat-notification');

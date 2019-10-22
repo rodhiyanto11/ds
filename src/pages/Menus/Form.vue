@@ -22,29 +22,31 @@
                                     <label for="lastName" class="col-sm-3 control-label">Route Path*</label>
                                     <div class="col-sm-12">
                                         <input type="text" id="lastName" placeholder="Last Name" class="form-control" autofocus required v-model="form.menu_path">
-                                        <span class="help-validate">{{errors.get('username')}}</span>
+                                        <span class="help-validate">{{errors.get('menu_path')}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-3 control-label">Component* </label>
                                     <div class="col-sm-12">
                                         <input type="email" id="email" placeholder="Email" class="form-control" name= "email"  required v-model="form.menu_component">
-                                        <span class="help-validate">{{errors.get('email')}}</span>
+                                        <span class="help-validate">{{errors.get('menu_component')}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-3 control-label">Parent*</label>
                                     <div class="container">
-                                        <v-select v-model="form.menu_parent" :options="menuCollection" :reduce="menu_name => menu_name.id" label="menu_name" ></v-select>
-                                        <span class="help-validate">{{errors.get('companies_id')}}</span>
+                                        <v-select :value="form.menu_parent" :options="menuCollection" :reduce="menu_name => menu_name.id" label="menu_name" ></v-select>
+                                        <span class="help-validate">{{errors.get('menu_parent')}}</span>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label for="email" class="col-sm-3 control-label">Menu Target*</label>
                                     <div class="container">
                                         <v-select  v-model="form.menu_target" :options="menutargetCollection" :reduce="menu_target_name => menu_target_name.id" label="menu_target_name" ></v-select>
+                                        
+                                         <span class="help-validate">{{errors.get('menu_target')}}</span>
                                     </div>
-                                </div>
+                                </div> -->
                                  
                               
                                 <div class='float-right' style="padding:10px;">
@@ -56,7 +58,7 @@
                                     &nbsp;&nbsp;
                                     <router-link 
                                         class="btn btn-outline-dark" 
-                                        to="/app/users">Cancel
+                                        to="/app/menus">Cancel
                                     </router-link>
                                 </div>
                             </form>
@@ -99,10 +101,12 @@ export default {
             formMode                    : this.$route.params.mode,
             formId                      : this.$route.params.id,
             menuCollection              : [],
-            menutargetcollection        : [],
+            menutargetCollection        : [],
             form : {
                 id : '',
                 menu_name : '',
+                menu_icon : '',
+                menu_status : '',
                 menu_path : '',
                 menu_component : '',
                 menu_parent : '',
@@ -116,9 +120,9 @@ export default {
         })
     },
     methods: {
-        // getSelected(){
-        //     console.log(this.form.companies_id);
-        // },
+        getSelected(){
+            console.log(this.form.menu_parent);
+        },
         createForm : function(){
             this.varLoad = true;
             this.$store.dispatch("REGISTER",this.form)//vuex
@@ -171,8 +175,10 @@ export default {
             this.varLoad = false;
             this.$axios.get('api/menutarget',{params : {menu : true}})
             .then((result) => {
+                //console.log(result.data.data);
                 this.menutargetCollection = result.data.data;
                 this.varLoad = false;
+                //console.log(this.menutargetcollection)
             }).catch(error=> {
                 //console.log(error.response.data);
                 this.$snotify.error(error.response.data);
@@ -184,6 +190,7 @@ export default {
             this.$axios.get('api/menus',{params : {menu : true}})
             .then((result) => {
                 this.menuCollection = result.data.data;
+                //console.log(this.menuCollection)
                 this.varLoad = false;
             }).catch(error=> {
                 //console.log(error.response.data);
@@ -193,7 +200,7 @@ export default {
         },
         getUserbyID : function(id){
             this.varLoad = true;
-            this.$axios.get('api/users/'+id)
+            this.$axios.get('api/menus/'+id)
             .then((result) => {
                 this.form = result.data.data
                 this.varLoad = false;
@@ -204,25 +211,27 @@ export default {
             })
         }
     },
+   
     computed : {
         formMethod : function(){
             return this.mode;
         }
+        
     },
     created (){
         if(this.formMode !== 'Create'){
             this.getUserbyID(this.formId);
             if(this.formMode === 'Update'){
-                this.name = "User-Update";
+                this.name = "Menu-Update";
             }else{
-                this.name = "User-Delete";
+                this.name = "Menu-Delete";
             }
         }else{
-            this.name = "User-Create";
+            this.name = "Menu-Create";
         }
-        this.getmenutarget();
+         this.getmenutarget();
         this.getmenuparent();
-        
+       console.log(this.menutargetCollection);
         
     }
     

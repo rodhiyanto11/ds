@@ -103,7 +103,7 @@
                 
               <div class="tableFilters form-inline ">
                 <div class="col-md-2 col-xs-2">
-                  <router-link class="btn btn-outline-dark" to='/app/menus/form/Create/new'>Create Menu</router-link>
+                  <router-link class="btn btn-outline-dark" to='/app/menus/action/Create/new'>Create Menu</router-link>
                 </div>
                 <div class="col-md-8 col-xs-2 float-right">
                         <div class="input-group">
@@ -132,9 +132,9 @@
                   <td>{{project.id}}</td>
                   <td>{{project.menu_component}}</td>
                   <td>
-                    <router-link :to="'/app/users/form/Update/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
+                    <router-link :to="'/app/menus/action/Update/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
                         &nbsp;
-                    <router-link :to="'/app/users/form/Delete/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
+                    <router-link :to="'/app/menus/action/Delete/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
                   </td>
 
                 </tr>
@@ -166,8 +166,6 @@ import Pagination from '@/components/Pagination/Pagination';
 import Loading from '@/components/Loading/Loading';
 import vueHeadful from 'vue-headful';
 export default {
-
-  name: 'MenuDashboard',
   components: { Widget,Datatable: Datatable, Pagination: Pagination , Loading, vueHeadful},
  data() {
         let sortOrders = {};
@@ -183,7 +181,7 @@ export default {
            sortOrders[column.name] = -1;
         });
         return {
-            name : 'User-Dashboard',
+            name : 'Menu-Dashboard',
             varLoad : false,
             incrementNumber : 0,
             incrementHit : 1,
@@ -283,7 +281,7 @@ export default {
   
  //   this.varLoad = true;
     this.getProjects();
-     
+     this.title = ''
   },
   
 };
