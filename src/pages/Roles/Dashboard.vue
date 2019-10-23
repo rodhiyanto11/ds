@@ -103,7 +103,7 @@
                 
               <div class="tableFilters form-inline ">
                 <div class="col-md-2 col-xs-2">
-                  <router-link class="btn btn-outline-dark" to='/app/menus/action/Create/new'>Create Menu</router-link>
+                  <router-link class="btn btn-outline-dark" to='/app/roles/action/Create/new'>Create Role</router-link>
                 </div>
                 <div class="col-md-8 col-xs-2 float-right">
                         <div class="input-group">
@@ -128,13 +128,16 @@
             <tbody>
                 <tr v-for="project in projects" :key="project.id">
                   <td><li></li></td>
-                  <td>{{project.menu_name}}</td>
+                  <td>{{project.role_name}}</td>
                   <td>{{project.id}}</td>
-                  <td>{{project.menu_component}}</td>
+                  <td>{{project.role_status  == 0 ?  'Tidak' : 'Aktif'}}</td>
+                  <td>{{project.role_desc}}</td>
                   <td>
-                    <router-link :to="'/app/menus/action/Update/'+project.id" :form="project" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.menu_name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
+                    <router-link :to="'/app/roles/action/Update/'+project.id" :form="project" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.role_name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
                         &nbsp;
-                    <router-link :to="'/app/menus/action/Delete/'+project.id" :form="project" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.menu_name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
+                    <router-link :to="'/app/roles/action/Delete/'+project.id" :form="project" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.role_name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
+                     &nbsp;
+                     <router-link :to="'/app/roles/action/Detail/'+project.id" :form="project" class="btn btn-outline-dark"  v-tooltip="'Detail '+project.role_name" ><i class="fa fa-cogs" aria-hidden="true"></i></router-link>
                   </td>
 
                 </tr>
@@ -165,15 +168,17 @@ import Datatable from '@/components/Datatable/Datatable';
 import Pagination from '@/components/Pagination/Pagination';
 import Loading from '@/components/Loading/Loading';
 import vueHeadful from 'vue-headful';
+import Layout from '@/components/Layout/Layout';
 export default {
-  components: { Widget,Datatable: Datatable, Pagination: Pagination , Loading, vueHeadful},
+  components: { Widget,Datatable: Datatable, Pagination: Pagination , Loading, vueHeadful,Layout},
  data() {
         let sortOrders = {};
         let columns = [
             {width: '5%', label: '', name: '' },
-            {width: '20%', label: 'Menu_name ', name: 'menu_name'},
-            {width: '10%', label: 'Menu Id', name: 'id'},
-            {width: '40%', label: 'Menu Component', name: 'menu_component'},
+            {width: '10%', label: 'Role Name ', name: 'role_name'},
+            {width: '10%', label: 'Role Id', name: 'id'},
+            {width: '30%', label: 'Role Status', name: 'role_status'},
+            {width: '30%', label: 'Role Desc', name: 'role_desc'},
             {width: '33%', label: 'action', name: 'action'}
         ];
        
@@ -181,7 +186,7 @@ export default {
            sortOrders[column.name] = -1;
         });
         return {
-            name : 'Menu-Dashboard',
+            name : 'Role-Dashboard',
             varLoad : false,
             incrementNumber : 0,
             incrementHit : 1,
@@ -210,7 +215,28 @@ export default {
         }
     },
   methods: {
-    getProjects(url = '/api/menus') {
+    // addroute(id){
+    //   let componentrolemenu = require(`@/pages/Roles/Dashboard.vue`).default;
+    //   const config =  [
+    //     {
+    //         path: 'rolemenus:id', 
+    //         component : componentrolemenu ,
+    //         name : 'RoleMenus',
+    //     }
+    //   ]
+    //   this.$router.addRoutes(["Layout",config]);
+      // this.$router.addRoutes(
+        
+      //   //config
+      //   ['/app',{
+      //       path: '/app/rolemenus:id', 
+      //       component : componentrolemenu ,
+      //       name : 'RoleMenus',
+      //   }]
+      //   )
+      
+   // },
+    getProjects(url = '/api/roles') {
             this.varLoad = true;
             this.tableData.draw++;
             this.$axios.get(url, {params: this.tableData})
@@ -261,7 +287,7 @@ export default {
         sortBy(key) {
             this.sortKey = key;
             this.sortOrders[key] = this.sortOrders[key] * -1;
-            this.tableData.column = this.getIndex(this.columns, 'name', key);
+            this.tableData.column = this.getIndex(this.columns, 'role_name', key);
             this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
             this.getProjects();
         },

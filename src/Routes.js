@@ -64,7 +64,7 @@ export default new Router({
     },
     {
       path: '/app',
-      name: 'Layout',
+      name: 'app',
       beforeEnter: guard,
       component: Layout,
       children: [

@@ -16,6 +16,7 @@ res.then((result) => {
 
 if(window.localStorage.getItem('menus') !== null){
     var ea = JSON.parse(window.localStorage.getItem('menus'));
+    //console.log(ea);
     for (var i = 0; i < ea.length; i++) {
     
         let componentname               = require(`@/pages/${ea[i].menu_component}.vue`).default;

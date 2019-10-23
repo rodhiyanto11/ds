@@ -32,16 +32,23 @@
       />
       <NavLink
         header="Analytics"
-        link="/app/Analytics-1"
+        link="/app/analytics-1"
         iconName="flaticon-list"
         index="analytics"
         isHeader
       />
       <NavLink
         header="Analytics"
-        link="/app/Analytics-2"
+        link="/app/analytics-2"
         iconName="flaticon-list"
         index="analytics"
+        isHeader
+      />
+      <NavLink
+        header="Roles"
+        link="/app/roles"
+        iconName="flaticon-list"
+        index="roles"
         isHeader
       />
       <NavLink
