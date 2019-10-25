@@ -55,7 +55,18 @@ export default{
                     reject(error);
                 })
             })
-        },
+        }, REGISTERUSERROLE :({}, payload) => {
+            // REGISTER :({commit}, payload) => {
+             return new Promise((resolve,reject) => {
+                 axios.post('api/userroles/',payload)
+                 .then(({data}) => {
+                     resolve(data);
+                 })
+                 .catch(error=>{
+                     reject(error);
+                 })
+             })
+         },
         UPDATEUSER :({commit}, payload) => {
             // REGISTER :({commit}, payload) => {
              return new Promise((resolve,reject) => {
@@ -70,7 +81,7 @@ export default{
          },
          DELETEUSER : ({commit},payload) => {
              return new Promise((resolve,reject) => {
-                axios.delete('api/users/'+payload.id)
+                axios.delete('api/userroles/'+payload.id)
                 .then(({data}) => {
                     resolve(data);
                 })
@@ -78,7 +89,18 @@ export default{
                     reject(error);
                 })
              })
-         }
+         },
+         DELETEUSERROLE : ({commit},payload) => {
+            return new Promise((resolve,reject) => {
+               axios.delete('api/userroles/'+payload.id)
+               .then(({data}) => {
+                   resolve(data);
+               })
+               .catch(error=>{
+                   reject(error);
+               })
+            })
+        }
            
         
     }

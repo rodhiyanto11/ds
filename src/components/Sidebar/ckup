@@ -18,7 +18,7 @@
         index="dashboard"
         isHeader
       />
-      <!-- <NavLink
+      <NavLink
         header="Users"
         link="/app/users"
         iconName="flaticon-list"
@@ -90,32 +90,24 @@
           { header: 'Icons', link: '/app/components/icons' },
           { header: 'Maps', link: '/app/components/maps' },
         ]"
-      /> -->
+      />
       <li class="headerLink" v-for="menu in menus">
-        <a  v-if="menu.child" :activeItem="activeItem" class="collapsed d-flex" :href="'#'+menu.index" data-toggle="collapse" :data-parent="'#'+menu.index">
+        <a class="collapsed d-flex" :href="'#'+menu.index" data-toggle="collapse" :data-parent="'#'+menu.index">
          <span class="icon">
            <i class="fi flaticon-layers"></i>
             </span>
             {{menu.header}}
-            <div data-v-15d90710="" class="caretWrapper"><i class="fa fa-plus"></i></div>
+            <div data-v-15d90710="" class="caretWrapper"><i class="fa fa-angle-left"></i></div>
         </a>
-      
-        <router-link v-else  :activeItem="activeItem" :to="menu.link" class="collapsed d-flex">
-          <span class="icon">
-           <i class="fi flaticon-layers"></i>
-            </span>
-            {{menu.header}}
-          </router-link>                
-        <ul  :activeItem="activeItem" :id="menu.index" class="collapse " v-if="menu.child" >
-          <li  :activeItem="activeItem" v-for="child in menu.child">
-            <!-- <a href="icons.html">Icons</a> -->
-            <router-link  :activeItem="activeItem" :to="child.link" class="d-flex">{{child.header}}</router-link>
-          </li>
+        <ul :id="menu.index" class="collapse ">
+          <li class=""><a href="icons.html">Icons</a></li>
+          <li class=""><a href="charts.html">Charts</a></li>
+          <li class=""><a href="maps_google.html">Google Maps</a></li>
         </ul>
-      </li> 
+      </li>
     </ul>
-    <!--<p>
-     <h5 class="navTitle">
+    <p>
+    <h5 class="navTitle">
       LABELS
       <a class="actionLink">
         <i class="la la-plus float-right" />
@@ -156,7 +148,7 @@
           :variant="alert.color" :value="alert.value" :max="100" />
         <small>{{alert.footer}}</small>
       </b-alert>
-    </div> -->
+    </div>
   </nav>
 </template>
 

@@ -48,7 +48,7 @@ if(window.localStorage.getItem('menus') !== null){
         }else if(ea[i].menu_target == 2){
             setmenus.push(
                 {
-                    path: ea[i].menu_path+'-:analyticsid', 
+                    path: ea[i].menu_path, 
                     component : componentname ,
                     name : ea[i].menu_name
                 }

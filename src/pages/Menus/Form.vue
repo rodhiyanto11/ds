@@ -12,23 +12,30 @@
                         <div class="container form-horizontal">
                             <form @submit.prevent ="formMode == 'Update' ? updateForm(formId) : ( formMode == 'Delete' ? deleteForm (formId) : createForm())">                  
                                 <div class="form-group">
-                                    <label for="firstName" class="col-sm-3 control-label">Name*</label>
+                                    <label for="email" class="col-sm-3 control-label">Menu Target*</label>
+                                    <div class="container">
+                                        <v-select placeholder="Menu Target" v-model="form.menu_target" :options="menutargetcollection" :reduce="menu_target_name => menu_target_name.id" label="menu_target_name" ></v-select>
+                                         <span class="help-validate">{{errors.get('menu_target')}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="firstName" class="col-sm-3 control-label">Name</label>
                                     <div class="col-sm-12">
-                                        <input type="text" id="menu_name" placeholder="Menu Name" class="form-control" autofocus required v-model="form.menu_name">
+                                        <input type="text" id="menu_name" placeholder="Menu Name" class="form-control" autofocus  v-model="form.menu_name">
                                         <span class="help-validate">{{errors.get('menu_name')}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="lastName" class="col-sm-3 control-label">Route Path*</label>
+                                    <label for="lastName" class="col-sm-3 control-label">Route Path</label>
                                     <div class="col-sm-12">
-                                        <input type="text" id="menu_path" placeholder="Route Path" class="form-control" autofocus required v-model="form.menu_path">
+                                        <input type="text" id="menu_path" placeholder="Route Path" class="form-control" autofocus  v-model="form.menu_path">
                                         <span class="help-validate">{{errors.get('menu_path')}}</span>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="col-sm-3 control-label">Component* </label>
+                                    <label for="email" class="col-sm-3 control-label">Component </label>
                                     <div class="col-sm-12">
-                                        <input type="text" id="menu_component" placeholder="menu_component" class="form-control" name= "menu_component"  required v-model="form.menu_component">
+                                        <input type="text" id="menu_component" placeholder="menu_component" class="form-control" name= "menu_component"   v-model="form.menu_component">
                                         <span class="help-validate">{{errors.get('menu_component')}}</span>
                                     </div>
                                 </div>
@@ -40,11 +47,29 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="col-sm-3 control-label">Menu Target*</label>
-                                    <div class="container">
-                                        <v-select  v-model="form.menu_target" :options="menutargetcollection" :reduce="menu_target_name => menu_target_name.id" label="menu_target_name" ></v-select>
-                                         <span class="help-validate">{{errors.get('menu_target')}}</span>
+                                    <label for="firstName" class="col-sm-3 control-label">Tableau URL</label>
+                                    <div class="col-sm-12">
+                                        <v-select  v-model="form.tableau" :options="tableaucollection" :reduce="analytics_name => analytics_name.id" label="analytics_name" >
+                                            <template slot="option" slot-scope="option">
+                                               
+                                                    <i class="fa fa-globe"></i> {{option.analytics_name}} <span style="color:red">-</span> {{ option.analytics_url }}
+                                            </template>
+                                            </v-select>
+                                        <span class="help-validate">{{errors.get('tabelau')}}</span>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-3 control-label">Menu Desc</label>
+                                    <div class="col-sm-12">
+                                            <b-form-textarea
+                                            id="textarea"
+                                            v-model="form.menu_desc"
+                                            placeholder="Enter something..."
+                                            rows="3"
+                                            max-rows="6"
+                                            ></b-form-textarea>
+                                            <span class="help-validate">{{errors.get('menu_desc')}}</span>
+                                        </div>
                                 </div>
                                  
                               
@@ -101,6 +126,7 @@ export default {
             formId                      : this.$route.params.id,
             menucollection              : [],
             menutargetcollection        : [],
+            tableaucollection           : [],
             options : [{code: '1', country: 'Canada'},{code: '2', country: 'Japan'},{code: '3', country: 'Nepal'}],
             form : {
                 id : '',
@@ -109,6 +135,8 @@ export default {
                 menu_component : '',
                 menu_parent : '',
                 menu_target : '',
+                tableau     : '',
+                menu_desc   : '',
             }
         }
     },
@@ -118,6 +146,7 @@ export default {
         })
     },
     methods: {
+       
         // getSelected(){
         //     console.log(this.form.companies_id);
         // },
@@ -193,6 +222,18 @@ export default {
                 this.varLoad = false;
             })
         },
+        getanalytics : function(){
+            this.varLoad = true;
+            this.$axios.get('api/analytics',{params : {analytics : true}})
+            .then((result) => {
+                this.tableaucollection = result.data.data;
+                this.varLoad = false;
+            }).catch(error=> {
+                //console.log(error.response.data);
+                this.$snotify.error(error.response.data);
+                this.varLoad = false;
+            })
+        },
         getmenubyID : function(id){
             this.varLoad = true;
             this.$axios.get('api/menus/'+id)
@@ -215,6 +256,7 @@ export default {
 
         this.getmenutarget();
         this.getmenuparent();
+        this.getanalytics();
         if(this.formMode !== 'Create'){
             this.getmenubyID(this.formId);
             if(this.formMode === 'Update'){

@@ -82,28 +82,25 @@
         </Widget>
       </b-col>
       <!----ini form detail---->
-      <div v-else>
+      <div v-else class-="col-md-8" style="padding-bottom:5%;">
         <form  class="" @submit.prevent ="createForm()">                  
-          <div class="form-group">
+          <div class="form-group" align="center">
               <label for="firstName" class="col-sm-3 control-label">Menu</label>
-              <div class="col-sm-12">
+              <div class="col-sm-6">
                  <v-select  v-model="form.menu_id" :options="menucollection" :reduce="menu_name => menu_name.id" label="menu_name" ></v-select>
                   <span class="help-validate">{{errors.get('menu_id')}}</span>
               </div>
           </div>
           <div class='float-right' style="padding:10px;">
-                                    <button 
-                                        class="btn btn-outline-dark" 
-                                        >
-                                       Register
-                                    </button>
-                                    &nbsp;&nbsp;
-                                    <a
-                                        class="btn btn-outline-dark" 
-                                        @click="isFormdetail = 1">Cancel
-                                    </a>
-                                </div>
+            <button class="btn btn-outline-dark" >Register</button>
+          </div>
         </form>
+        &nbsp;&nbsp;
+         <div class='float-right' style="padding:10px;">
+            <button class="btn btn-outline-dark" @click="isFormdetail = 1">Cancel</button>
+          </div>
+            
+          
       </div>
     </div>
     
@@ -194,11 +191,11 @@ export default {
     createForm : function(){
             this.varLoad = true;
             this.$store.dispatch("REGISTERROLEMENU",this.form)//vuex
-            //this.form.post('api/admin/users/')
             .then((response) => {
                 this.varLoad = false;
                 this.$snotify.success("Registration is successfully");
                 this.isFormdetail = 1;
+                this.getDetail(this.$route.params.id);
                 setTimeout(() => {
                   this.getProjects()
                 },1000)
@@ -208,7 +205,6 @@ export default {
                 this.varLoad = false;
                 this.errors.record(error.response.data );
                 this.$snotify.error('Registration is error with status code : '+error.response.status);
-                
             });
         },
     getDetail(id){
@@ -229,7 +225,6 @@ export default {
       .catch(error => {
         this.$snotify.error(error.response.data);
       })
-      
     },
     getProjects(url = 'api/rolemenus?id='+this.$route.params.id+'') {
             this.varLoad = true;
@@ -299,6 +294,7 @@ export default {
                  this.$snotify.success("Deleted is successfully");
                 this.isFormdetail = 0;
                 this.isFormdetail = 1;
+                this.getDetail(this.$route.params.id);
                 setTimeout(()=> {
                   this.getProjects()
                 },1000)

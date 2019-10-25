@@ -1,96 +1,12 @@
+
 <template>
   <div>
+    
     <loading :showloading="varLoad" />
     <vue-headful :title="name"/>
     <div>
-       <b-row>
-      <b-col lg="3" sm="6" xs="12">
-        <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Visits Today">
-            <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h2>4,332</h2>
-              <i class="la la-arrow-right text-success rotate-315" />
-            </div>
-            <div class="d-flex flex-wrap justify-content-between">
-              <div class="mt">
-                <h6>+830</h6><p class="text-muted mb-0 mr"><small>Logins</small></p>
-              </div>
-              <div class="mt">
-                <h6>0.5%</h6><p class="text-muted mb-0"><small>Sign Out</small></p>
-              </div>
-              <div class="mt">
-                <h6>4.5%</h6><p class="text-muted mb-0 mr"><small>Rate</small></p>
-              </div>
-            </div>
-          </Widget>
-        </div>
-      </b-col>
-      <b-col lg="3" sm="6" xs="12">
-        <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Revenue Breakdown">
-           <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h2>4,332</h2>
-              <i class="la la-arrow-right text-success rotate-315" />
-            </div>
-            <div class="d-flex flex-wrap justify-content-between">
-              <div class="mt">
-                <h6>+830</h6><p class="text-muted mb-0 mr"><small>Logins</small></p>
-              </div>
-              <div class="mt">
-                <h6>0.5%</h6><p class="text-muted mb-0"><small>Sign Out</small></p>
-              </div>
-              <div class="mt">
-                <h6>4.5%</h6><p class="text-muted mb-0 mr"><small>Rate</small></p>
-              </div>
-            </div>
-          </Widget>
-        </div>
-      </b-col>
-       <b-col lg="3" sm="6" xs="12">
-        <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Revenue Breakdown">
-            <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h2>4,332</h2>
-              <i class="la la-arrow-right text-success rotate-315" />
-            </div>
-            <div class="d-flex flex-wrap justify-content-between">
-              <div class="mt">
-                <h6>+830</h6><p class="text-muted mb-0 mr"><small>Logins</small></p>
-              </div>
-              <div class="mt">
-                <h6>0.5%</h6><p class="text-muted mb-0"><small>Sign Out</small></p>
-              </div>
-              <div class="mt">
-                <h6>4.5%</h6><p class="text-muted mb-0 mr"><small>Rate</small></p>
-              </div>
-            </div>
-          </Widget>
-        </div>
-      </b-col>
-       <b-col lg="3" sm="6" xs="12">
-        <div class="pb-xlg h-100">
-          <Widget class="h-100 mb-0" title="Revenue Breakdown">
-            <div class="d-flex justify-content-between align-items-center mb-lg">
-              <h2>4,332</h2>
-              <i class="la la-arrow-right text-success rotate-315" />
-            </div>
-            <div class="d-flex flex-wrap justify-content-between">
-              <div class="mt">
-                <h6>+830</h6><p class="text-muted mb-0 mr"><small>Logins</small></p>
-              </div>
-              <div class="mt">
-                <h6>0.5%</h6><p class="text-muted mb-0"><small>Sign Out</small></p>
-              </div>
-              <div class="mt">
-                <h6>4.5%</h6><p class="text-muted mb-0 mr"><small>Rate</small></p>
-              </div>
-            </div>
-          </Widget>
-        </div>
-      </b-col>
-     </b-row> 
-    <b-row>
-      <b-col xs="12">
+     
+      <b-col xs="12"  v-if="isFormdetail != 0">
         <Widget
           title="<h5>Support <span class='fw-semi-bold'>Requests</span></h5>"
           bodyClass="widget-table-overflow"
@@ -103,7 +19,10 @@
                 
               <div class="tableFilters form-inline ">
                 <div class="col-md-2 col-xs-2">
-                  <router-link class="btn btn-outline-dark" to='/app/menus/action/Create/new'>Create Menu</router-link>
+                  
+                  
+                  <button class="btn btn-outline-dark" @click="isFormdetail = 0" >Create Role Menu</button>
+                  
                 </div>
                 <div class="col-md-8 col-xs-2 float-right">
                         <div class="input-group">
@@ -127,16 +46,23 @@
           <Datatable :columns="columns" :sortKey="sortKey" :sortOrders="sortOrders" @sort="sortBy" class="table-responsive">
             <tbody>
                 <tr v-for="project in projects" :key="project.id">
-                  <td><li></li></td>
-                  <td>{{project.menu_name}}</td>
-                  <td>{{project.id}}</td>
-                  <td>{{project.menu_component}}</td>
-                  <td>{{project.tableau}}</td>
-                  <td>{{project.menu_desc}}</td>
                   <td>
-                    <router-link :to="'/app/menus/action/Update/'+project.id" :form="project" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.menu_name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
-                        &nbsp;
-                    <router-link :to="'/app/menus/action/Delete/'+project.id" :form="project" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.menu_name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
+                      <button 
+                      
+                      class="btn btn-outline-dark"  
+                      v-tooltip="'Delete '+project.role_name" 
+                      @click="deleteForm(project.id)"  
+                      >
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                      </button>
+                      </td>
+                  <td>{{project.id}}</td>
+                  <td>{{project.name}}</td>
+                  <td>{{project.role_name}}</td>
+                  <td>{{project.role_status  == 0 ?  'Tidak' : 'Aktif'}}</td>
+                  <td>{{project.role_desc}}</td>
+                  <td>
+                    
                   </td>
 
                 </tr>
@@ -146,6 +72,7 @@
             @prev="getProjects(pagination.prevPageUrl)"
             @next="getProjects(pagination.nextPageUrl)">
           </Pagination>
+          <router-link class="btn btn-outline-dark" to="/app/users"> <i class="fa fa-arrow-left"></i> Back</router-link>
         </div>
         </div>
         </b-col>
@@ -154,7 +81,27 @@
           
         </Widget>
       </b-col>
-    </b-row>
+      <!----ini form detail---->
+      <div v-else class-="col-md-8" style="padding-bottom:5%;">
+        <form  class="" @submit.prevent ="createForm()">                  
+          <div class="form-group" align="center">
+              <label for="firstName" class="col-sm-3 control-label">Role</label>
+              <div class="col-sm-6">
+                 <v-select  v-model="form.role_id" :options="menucollection" :reduce="role_name => role_name.id" label="role_name" ></v-select>
+                  <span class="help-validate">{{errors.get('role_id')}}</span>
+              </div>
+          </div>
+          <div class='float-right' style="padding:10px;">
+            <button class="btn btn-outline-dark" >Register</button>
+          </div>
+        </form>
+        &nbsp;&nbsp;
+         <div class='float-right' style="padding:10px;">
+            <button class="btn btn-outline-dark" @click="isFormdetail = 1">Cancel</button>
+          </div>
+            
+          
+      </div>
     </div>
     
     
@@ -162,31 +109,53 @@
 </template>
 
 <script>
+class Errors{
+    errors = {};
+    get(field){
+        if(this.errors[field]){
+            let msg = '';
+            for(var i = 0 ; i < this.errors[field].length ; i++){
+                msg = msg + this.errors[field][i]+" ";
+            }
+           
+            return msg;
+        }
+    }
+    record(errors){
+        this.errors = errors; 
+    }
+}
 import Widget from '@/components/Widget/Widget';
 import Datatable from '@/components/Datatable/Datatable';
 import Pagination from '@/components/Pagination/Pagination';
 import Loading from '@/components/Loading/Loading';
 import vueHeadful from 'vue-headful';
+import vSelect from 'vue-select'
 export default {
-  components: { Widget,Datatable: Datatable, Pagination: Pagination , Loading, vueHeadful},
+  props : ['myid'],
+  components: { Widget,Datatable: Datatable, Pagination: Pagination , Loading, vueHeadful,vSelect},
  data() {
+   //$columns = ['id', 'menu_name', 'role_name','id'];
         let sortOrders = {};
         let columns = [
             {width: '5%', label: '', name: '' },
-            {width: '20%', label: 'Menu_name ', name: 'menu_name'},
-            {width: '10%', label: 'Menu Id', name: 'id'},
-            {width: '10%', label: 'Menu Component', name: 'menu_component'},
-            {width: '20%', label: 'Tabelau', name: 'tableau'},
-            {width: '20%', label: 'Menu Desc', name: 'menu_desc'},
-            {width: '33%', label: 'action', name: 'action'}
+            {width: '5%', label: 'Id', name: 'id' },
+            {width: '30%', label: 'Name ', name: 'name'},
+            {width: '30%', label: 'Role name', name: 'role_name'},
+            {width: '30%', label: 'Role Status', name: 'role_status'},
+            {width: '10%', label: '', name: 'action'}
         ];
        
         columns.forEach((column) => {
            sortOrders[column.name] = -1;
         });
         return {
-            name : 'Menu-Dashboard',
+            name : 'Role-Dashboard',
             varLoad : false,
+            formId : this.$route.params.id,
+            menucollection : [],
+            isFormdetail : 1,
+            formMode : '',
             incrementNumber : 0,
             incrementHit : 1,
             projects: [],
@@ -194,6 +163,7 @@ export default {
             sortKey: 'deadline',
             sortOrders: sortOrders,
             perPage: ['5', '20', '30'],
+            errors : new Errors(),
             tableData: {
                 draw: 0,
                 length: 5,
@@ -211,10 +181,57 @@ export default {
                 from: '',
                 to: ''
             },
+            form : {
+              role_id : '',
+              user_id : this.$route.params.id,
+              status : 1
+            }
         }
     },
   methods: {
-    getProjects(url = '/api/menus') {
+    createForm : function(){
+            this.varLoad = true;
+            this.$store.dispatch("REGISTERUSERROLE",this.form)//vuex
+            //this.form.post('api/admin/users/')
+            .then((response) => {
+                this.varLoad = false;
+                this.$snotify.success("Registration is successfully");
+                this.isFormdetail = 1;
+                this.form.role_id = '';
+                this.getDetail(this.$route.params.id);
+                setTimeout(() => {
+                  this.getProjects()
+                },1000)
+                
+            })
+            .catch((error) => {
+                this.varLoad = false;
+                this.errors.record(error.response.data );
+                this.$snotify.error('Registration is error with status code : '+error.response.status);
+                
+            });
+        },
+    getDetail(id){
+      this.$axios.get('/api/userroles/'+id+'/edit')
+      .then((result) => {
+        this.menucollection = result.data.data
+      })
+      .catch(error => {
+        this.$snotify.error(error.response.data);
+      })
+      
+    },
+     getDetails(id){
+      this.$axios.get('/api/userroles/'+id)
+      .then((result) => {
+        this.menucollection = result.data.data
+      })
+      .catch(error => {
+        this.$snotify.error(error.response.data);
+      })
+      
+    },
+    getProjects(url = 'api/userroles?id='+this.$route.params.id+'') {
             this.varLoad = true;
             this.tableData.draw++;
             this.$axios.get(url, {params: this.tableData})
@@ -226,10 +243,11 @@ export default {
                       this.$router.push('/login');
                     }else{
                       if (this.tableData.draw == data.draw) {
+                        console.log(data.data.data);
                         this.projects = data.data.data;
                         this.configPagination(data.data);
                         this.incrementNumber = data.data.from;
-                         this.$snotify.success('Fetch data is successfully')
+                       //  this.$snotify.success('Fetch data is successfully')
                       }
                     }
                     
@@ -265,13 +283,36 @@ export default {
         sortBy(key) {
             this.sortKey = key;
             this.sortOrders[key] = this.sortOrders[key] * -1;
-            this.tableData.column = this.getIndex(this.columns, 'name', key);
+            this.tableData.column = this.getIndex(this.columns, 'role_name', key);
             this.tableData.dir = this.sortOrders[key] === 1 ? 'asc' : 'desc';
             this.getProjects();
         },
         getIndex(array, key, value) {
             return array.findIndex(i => i[key] == value)
         },
+        deleteForm : function(id){
+            this.varLoad = true;
+            
+            this.$store.dispatch('DELETEUSERROLE',{id : id})
+            .then((response) => {
+              
+                 this.$snotify.success("Deleted is successfully");
+                this.isFormdetail = 0;
+                this.isFormdetail = 1;
+                this.getDetail(this.$route.params.id);
+                setTimeout(()=> {
+                  this.getProjects()
+                },1000)
+                
+                
+            })
+            .catch((error) => {
+                this.varLoad = false;
+                this.errors.record(error.response.data );
+                this.$snotify.error('Delete is error with status code : '+error.response.status);
+            });
+        },
+        
   },
   
 
@@ -279,12 +320,18 @@ export default {
     //this.getProjects();
   },
   computed:{
-    
+      rerender(){
+        this.getProjects()
+        return 1;
+      }
     },
   created() {
-  
+  //this.myid = this.formId
  //   this.varLoad = true;
-    this.getProjects();
+   //if(this.isFormdetail == 1){
+     this.getProjects();
+   //}
+    this.getDetail(this.$route.params.id);
      this.title = ''
   },
   

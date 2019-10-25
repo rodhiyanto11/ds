@@ -67,7 +67,26 @@
     padding-top : 30%;
   }
 }
-
+.sidebarOpened .logo{
+  width: 100%;
+  height: 15%;
+  //padding: -10px 20px 10px 50%;
+  // overflow-y: block;
+  // overflow-x: block;
+  // ul{
+  //   padding: 100%;
+  // }
+}
+.sidebarStatic .logo{
+  width: 100%;
+  height: 15%;
+  // padding: -10px 20px 10px 50%;
+  // overflow-y: block;
+  // overflow-x: block;
+  // ul{
+  //   padding: 100%;
+  // }
+}
 .sidebarStatic .navTitle {
   opacity: 1;
   transition: none;
@@ -145,6 +164,11 @@
   }
   .logo {
     width: 100%;
+  }
+}
+.sidebarClose {
+  .headerLink ul{
+    display :none;
   }
 }
 .sidebarOpened {

@@ -135,6 +135,8 @@
                     <router-link :to="'/app/users/action/Update/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Edit '+project.name" ><i class="fa fa-pencil" aria-hidden="true"></i></router-link>
                         &nbsp;
                     <router-link :to="'/app/users/action/Delete/'+project.id" class="btn btn-outline-dark"  v-tooltip="'Delete '+project.name" ><i class="fa fa-trash" aria-hidden="true"></i></router-link>
+                     &nbsp;
+                     <router-link :to="'/app/users/action/Detail/'+project.id"  class="btn btn-outline-dark"  v-tooltip="'Detail '+project.name" ><i class="fa fa-cogs" aria-hidden="true"></i></router-link>
                   </td>
 
                 </tr>

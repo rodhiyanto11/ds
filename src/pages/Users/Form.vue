@@ -7,7 +7,7 @@
             bodyClass="widget-table-overflow"
             customHeader
             >
-               <b-row style="padding:0px;">
+               <b-row style="padding:0px;" v-if="formMode!=='Detail'">
                     <b-col xs="12"  class="">
                         <div class="container form-horizontal">
                             <form @submit.prevent ="formMode == 'Update' ? updateForm(formId) : ( formMode == 'Delete' ? deleteForm (formId) : createForm())">                  
@@ -99,8 +99,11 @@
                         </div>
                     </b-col>
                 </b-row>   
+                 <Detail v-else/> 
+
             </Widget>
     </div>
+
 </template>
 <script>
 class Errors{
@@ -123,12 +126,14 @@ import Widget from '@/components/Widget/Widget';
 import Loading from '@/components/Loading/Loading';
 import vSelect from 'vue-select'
 import vueHeadful from 'vue-headful';
+import Detail from '@/pages/Users/Detail'
 export default {
  
     name: 'UserCreate',
-    components: { Widget, Loading,vSelect,vueHeadful},
+    components: { Widget, Loading,vSelect,vueHeadful,Detail},
     data(){
         return {
+            formstatus : false,
             name: '',
            options :[{code: 'CA', country: 'Canada'},{code:'ID',country : 'Indonesia'}],
             prevRoute: null,
@@ -265,15 +270,25 @@ export default {
         }
     },
     created (){
-        if(this.formMode !== 'Create'){
+         if(this.formMode !== 'Create'){
             this.getUserbyID(this.formId);
             if(this.formMode === 'Update'){
+                this.formstatus = 1;
                 this.name = "User-Update";
             }else{
+                this.formstatus = 1;
                 this.name = "User-Delete";
             }
         }else{
-            this.name = "User-Create";
+            if(this.formMode == 'Detail'){
+                this.formstatus = 0;
+                this.name = "User Roles-Dashboard";
+            }else{
+                 this.formstatus = 1;
+                 this.name = "User-Create";
+                 this.varLoad = false;
+            }
+           
         }
         this.getCompanies();
         this.getDivisions();

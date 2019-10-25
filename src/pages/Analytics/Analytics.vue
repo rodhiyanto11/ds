@@ -139,6 +139,11 @@ export default {
         this.uri = 'https://118.97.214.19:7070/trusted/';
         var url = this.uri+window.localStorage.getItem('tableautoken')+'/'+window.localStorage.getItem('location');
         this.full =  this.initgetViz(url)
+        try {
+          this.full
+        } catch (error) {
+          alert(error)
+        }
     },
     getUrl(id){
       this.$axios.get("api/analytics/"+id)
@@ -146,7 +151,8 @@ export default {
        window.localStorage.setItem('location',result.data[0].analytics_url)
       })
       .catch(error => {
-        this.$snotify.error(error.response.data);
+        window.localStorage.setItem('location',id)
+        //this.$snotify.error(error.response.data);
       })          
     },
      getTokenTableau  (){
