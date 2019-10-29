@@ -43,9 +43,13 @@ window.localStorage.setItem('base_url',"http://127.0.0.1:8000/");
 Axios.defaults.baseURL = "http://127.0.0.1:8000/"
 //Axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 Axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+Axios.defaults.headers.post['Access-Control-Allow-Origin'] = '';
 Axios.defaults.headers.post['Content-Type'] ='application/x-www-form-urlencoded';
+//Axios.defaults.headers.post['Content-Type'] ='application/javascript';
+
 Axios.defaults.headers.post['X-Frame-Options'] ='GOFORIT';
-Axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token');
+Axios.defaults.headers.post["Access-Control-Max-Age"]= "1728000";
+//Axios.defaults.headers.common['Authorization'] = 'Bearer '+localStorage.getItem('token');
 Axios.defaults.withCredentials = true;
 
 let isAlreadyFetchingAccessToken = false

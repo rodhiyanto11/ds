@@ -5,6 +5,7 @@ import Menus from './menus';
 import Companies from './companies';
 import Roles from './roles';
 import layout from './layout';
+import Analytics from './analytics';
 
 Vue.use(Vuex);
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
     'companies' : Companies,
     'menus' : Menus,
     'roles' : Roles,
+    'analytics' : Analytics,
   },
 });

@@ -40,6 +40,7 @@ export default {
   //   }
     const currentPath = this.$router.history.current.path;
     if (currentPath === '/' || currentPath === '/app') {
+      console.log(1);
       this.$router.push('/app/dashboard');
     }
     }

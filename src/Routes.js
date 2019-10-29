@@ -5,6 +5,7 @@ import Layout from '@/components/Layout/Layout';
 import Login from '@/pages/Login/Login';
 
 import ErrorPage from '@/pages/Error/Error';
+import ProfilePage from '@/pages/ProfilePage/ProfilePage';
 // Core
 import Analytics from '@/pages/Analytics/Analytics';
 
@@ -16,6 +17,7 @@ import GoogleMapPage from '@/pages/Maps/Google';
 
 // Main
 import AnalyticsPage from '@/pages/Dashboard/Dashboard';
+
 
 // Charts
 import ChartsPage from '@/pages/Charts/Charts';
@@ -31,16 +33,18 @@ import NotificationsPage from '@/pages/Notifications/Notifications';
 //
 
 Vue.use(Router);
-
+console.log(window.localStorage.getItem('company'));
 function guard(to, from, next){
-  if(window.localStorage.getItem('authenticated') !== 'false'  || window.localStorage.getItem('token') !== 'false' ) {
+  console.log(window.localStorage.getItem('company'));
+  if(window.localStorage.getItem('authenticated') !== 'false'  &&  window.localStorage.getItem('token') !== 'false' ) {
       next(); 
   } else{
       next('login/'+window.localStorage.getItem('company')); // go to '/login';
   }
 }
 function guardLogin(to, from, next){
-  if(window.localStorage.getItem('authenticated') !== 'false' || window.localStorage.getItem('token') !== 'false' ) {
+  
+  if(window.localStorage.getItem('authenticated') !== 'false' && window.localStorage.getItem('token') != 'false') {
       next('app/dashboard'); 
   } else{
       next(); // go to '/login';
@@ -72,7 +76,12 @@ export default new Router({
           path: 'dashboard',
           name: 'AnalyticsPage',
           component: AnalyticsPage,
+        },{
+          path : 'profile',
+          name : 'ProfilePage',
+          component : ProfilePage
         },
+       
         // {
         //   path: 'analytics',
         //   name: 'Analytics',
@@ -103,7 +112,8 @@ export default new Router({
           path: 'components/maps',
           name: 'GoogleMapPage',
           component: GoogleMapPage,
-        },
+        }, 
+       
         
       ],
     },

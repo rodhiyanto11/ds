@@ -32,13 +32,13 @@
                             </span>
                         </div>
                 </div>
-                <div class="col-md-2 col-xs-2">
+                <!-- <div class="col-md-2 col-xs-2">
                     <div class="select">
                         <select v-model="tableData.length" @change="getProjects()" class="form-control">
                             <option v-for="(records, index) in perPage" :key="index" :value="records">{{records}}</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
                 
             </div>
         
@@ -162,7 +162,7 @@ export default {
             columns: columns,
             sortKey: 'deadline',
             sortOrders: sortOrders,
-            perPage: ['5', '20', '30'],
+            perPage: [],
             errors : new Errors(),
             tableData: {
                 draw: 0,
@@ -196,6 +196,7 @@ export default {
                 this.$snotify.success("Registration is successfully");
                 this.isFormdetail = 1;
                 this.getDetail(this.$route.params.id);
+                this.form.menu_id = '';
                 setTimeout(() => {
                   this.getProjects()
                 },1000)
@@ -204,6 +205,7 @@ export default {
             .catch((error) => {
                 this.varLoad = false;
                 this.errors.record(error.response.data );
+                this.form.menu_id = '';
                 this.$snotify.error('Registration is error with status code : '+error.response.status);
             });
         },

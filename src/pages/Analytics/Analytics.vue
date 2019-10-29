@@ -1,6 +1,6 @@
 <template>
   <div class="tables-basic">
-    <vue-headful title="Analytics"></vue-headful>
+    <vue-headful :title="name"></vue-headful>
     <b-row>
       <b-col>
         <Widget
@@ -19,7 +19,7 @@
       var workbook;
       var containerDiv;
       function initViz(params, sheetexc) {
-        dispose();
+      //  dispose();
             var containerDiv = document.getElementById("refs"),
                 url = params,
                 options = {
@@ -121,6 +121,7 @@ export default {
   components: { Widget , vueHeadful },
   data() {
     return {
+      name : '',
       token : '',
       url : '',
       location : '',
@@ -129,6 +130,7 @@ export default {
   },
   methods: {
      initgetViz (url) {  
+       dispose();
                 this.sheetexc.push("Branch by Total Active Member");
                 initViz(url, this.sheetexc);
             },
@@ -136,19 +138,17 @@ export default {
     generatingTableau(){
         this.getUrl(this.$route.params.analyticsid);
         this.getTokenTableau()
-        this.uri = 'https://118.97.214.19:7070/trusted/';
+        this.uri = 'https://dwh.admedika.co.id:7070/trusted/';
         var url = this.uri+window.localStorage.getItem('tableautoken')+'/'+window.localStorage.getItem('location');
-        this.full =  this.initgetViz(url)
-        try {
-          this.full
-        } catch (error) {
-          alert(error)
-        }
+         this.initgetViz(url)
+         
+        
     },
     getUrl(id){
       this.$axios.get("api/analytics/"+id)
       .then((result) => {
        window.localStorage.setItem('location',result.data[0].analytics_url)
+       this.name = result.data[0].analytics_name  
       })
       .catch(error => {
         window.localStorage.setItem('location',id)
@@ -176,17 +176,32 @@ export default {
   },
    watch: {
       '$route' (to, from) {
-        dispose();
-           this.generatingTableau();   
+        this.generatingTableau();   
+        setTimeout(() => {
+        this.generatingTableau();
+      }, 1000);
+      setTimeout(() => {
+          this.generatingTableau();
+      }, 1000);
+        //dispose();
+           
         }
       },
   mounted() {
-    dispose();    
+    //dispose();    
      this.$emit('up');
      this.$on('up',() => {
        console.log(2)
      })
+    // dispose();
     this.generatingTableau();
+    setTimeout(() => {
+        this.generatingTableau();
+    }, 1000);
+     setTimeout(() => {
+        this.generatingTableau();
+    }, 1000);
+    
   },
 };
 </script>

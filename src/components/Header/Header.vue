@@ -59,19 +59,27 @@
         extra-menu-classes="notificationsWrapper py-0 animated animated-fast fadeInUp"
         right>
         <template slot="button-content">
-          <span class="avatar thumb-sm float-left mr-2">
-            <img class="rounded-circle" src="../../assets/people/a5.jpg" alt="..." />
+          <span class="avatar thumb-sm float-left mr-2" >
+            <img class="rounded-circle" v-bind:src="myphoto" alt="..." />
           </span>
-          <span class="small" style="color:white;">Philip <span class="fw-semi-bold nav-i">Smith</span></span>
+          <span class="small" style="color:white;">My <span class="fw-semi-bold nav-i">Account</span></span>
           <!-- <span class="ml-1 circle bg-warning text-white fw-bold">13</span> -->
         </template>
-         <b-dropdown-item><i class="la la-user" /> My Account</b-dropdown-item>
-        <b-dropdown-divider />
+        
+         <b-dropdown-item to="/app/profile">
+           <!-- <router-link t> -->
+           <i class="la la-user" />Profile
+             <!-- </router-link>  -->
+         
+           
+          </b-dropdown-item>
+            
+        <!-- <b-dropdown-divider />
         <b-dropdown-item>Calendar</b-dropdown-item>
         <b-dropdown-item>
           Inbox &nbsp;&nbsp;<b-badge variant="danger" pill class="animated bounceIn">9</b-badge>
         </b-dropdown-item>
-        <b-dropdown-divider />
+        <b-dropdown-divider /> -->
         <b-dropdown-item-button @click="logout">
           <i class="la la-sign-out" /> Log Out
         </b-dropdown-item-button>
@@ -131,6 +139,8 @@ export default {
   data (){
     return {
       isCompany : '',
+      myname: window.localStorage.getItem('fullname'),
+      myphoto : window.localStorage.getItem('photo') ? window.localStorage.getItem('urlapi')+'/img/'+window.localStorage.getItem('photo') : window.localStorage.getItem('urlapi')+'/img/user-profile.png',
     }
   },
   components: { Notifications },
@@ -171,13 +181,13 @@ export default {
     logout() {
       window.localStorage.setItem('authenticated', false);
       window.localStorage.setItem('token', false);
-    
-      this.$router.push('/login/'+localStorage.getItem('company'));
+   // console.log('1');
+      this.$router.push('/login/'+window.localStorage.getItem('company'));
       
     },
   },
   created() {
-  
+  console.log(window.localStorage.getItem('urlapi'))
     if (window.innerWidth > 576) {
       setTimeout(() => {
         const $chatNotification = $('#chat-notification');

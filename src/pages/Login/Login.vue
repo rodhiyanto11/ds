@@ -144,11 +144,13 @@ export default {
         return this.color;
     },
     setCompany : function(){
+      //console.log(this.company);
+      //console.log(this.$route.params.company);
       this.company = this.$route.params.company;
-      if(this.company === undefined || this.company == 'null'){
-        console.log(2);
-        alert('invalid url');
-        window.location.href = "http://www.google.com";
+      if(this.company === undefined || this.company == 'null' || !this.company || !window.localStorage.getItem('token')){
+       // console.log(2);
+        //alert('invalid url');
+       // window.location.href = "http://www.google.com";
           this.cekCompany = 'N';
         }else{
           window.localStorage.setItem('company',this.$route.params.company);
