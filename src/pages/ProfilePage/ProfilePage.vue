@@ -1,5 +1,6 @@
 <template>
 <div>
+  <vue-headful title="Profile"/>
     <center>
       <h1 class="page-title">Profile</h1>
     </center>
@@ -22,7 +23,7 @@
         <input @change="updatePhoto" name="photo" type="file" class="text-center center-block file-upload">
         <!-- <input type="file" class="custom-file-input" id="customFile" name="photo" @change="updatePhoto" > -->
       </div>
-      <div class="panel-heading">Role s<i class="fa fa-cogs fa-1x"></i></div>
+      <div align="center" style="margin-top:20px;margin-bottom:10px;" class="panel-heading">Roles <i class="fa fa-cogs fa-1x"></i></div>
         <v-select @input="changerole" placeholder="Role Target" v-model="form.role_default"  :options="rolecollection" :reduce="role_name => role_name.id" label="role_name" ></v-select>
           
         
@@ -74,13 +75,13 @@
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="mobile"><h4>Division</h4></label>
-                              <input type="text" disabled v-model="form.division" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+                              <input type="text" disabled v-model="form.division" class="form-control" name="mobile" id="mobile" placeholder="division" title="enter your mobile number if any.">
                           </div>
                       </div>
                       <div class="form-group">
                           <div class="col-xs-6">
                              <label for="mobile"><h4>Derpartment</h4></label>
-                              <input type="text" disabled v-model="form.deparment" class="form-control" name="mobile" id="mobile" placeholder="enter mobile number" title="enter your mobile number if any.">
+                              <input type="text" disabled v-model="form.deparment" class="form-control" name="mobile" id="mobile" placeholder="department" title="enter your mobile number if any.">
                           </div>
                       </div>
                       <div class="form-group">
@@ -94,7 +95,7 @@
                           
                           <div class="col-xs-6">
                             <label for="password2"><h4>Retype-Password</h4></label>
-                              <input type="password" v-model="form.verify" class="form-control" name="verify" id="password2" placeholder="password2" title="enter your password2.">
+                              <input type="password" v-model="form.password_confirmation" class="form-control" name="password_confirmation" id="password2" placeholder="password2" title="enter your password2.">
                           </div>
                       </div>
                       <div class="form-group">
@@ -128,10 +129,11 @@
 </template>
 
 <script>
-import vSelect from 'vue-select'
+import vSelect from 'vue-select';
+import vueHeadful from 'vue-headful';
 export default {
   name: 'ErrorPage',
-  components : {vSelect},
+  components : {vSelect,vueHeadful},
   data(){
     return {
       rolecollection : [],
@@ -140,7 +142,7 @@ export default {
         username : '',
         email : '',
         photo : '',
-        verify : '',
+        password_confirmation : '',
         company : '',
         division : '',
         department : '',
@@ -154,13 +156,14 @@ export default {
     changerole : function (){
       this.$axios.put('api/users/1',{params : {changerole : true, role_id: this.form.role_default}})
       .then((response) => {
-        if(response.data.status == 'success'){
-          window.location.reload();
+        if(response){
+         // window.location.reload();
+         this.$router.push('/app/dashboard');
           //console.log(2);
         }
       })
       .catch(error=>{
-        console.log(error.response.data);
+        console.log(error);
       });
     },
     getrole : function(){
@@ -182,6 +185,7 @@ export default {
         this.form.photo = 'http://localhost:8000/img/'+this.form.photo
         this.password = '';
         this.verify = '';
+      //  window.localStorage.setItem('photo',this.form.photo);
         
       })
       .catch(error => {
@@ -212,15 +216,27 @@ export default {
         },
     Update(){
      this.$axios.put('api/users/1',this.form)
-     then((result) => {
-
+     .then((response) => {
+       console.log(response.data.data)
+       this.$snotify.success("Update is successfully");
+       setTimeout(()=> {
+           window.localStorage.setItem('authenticated', false);
+          window.localStorage.setItem('token', false);
+           window.localStorage.setItem('photo',false) ;
+      // console.log('1');
+          this.$router.push('/login/'+window.localStorage.getItem('company'));
+       },2000)
+      
+       this.$router.push('/app/profile');
      })
      .catch();
     }    
   },
   
   created (){
-  
+  if(window.localStorage.getItem('status') == 2){
+     this.$snotify.success("Please change your password");
+  }
   //this.$refs.homeprofile.$el.focus()
     this.getrole();
     this.getProfile();

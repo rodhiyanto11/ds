@@ -1,6 +1,7 @@
 <template>
+
   <div class="tables-basic">
-    <vue-headful :title="name"></vue-headful>
+    <vue-headful title="Analytics"></vue-headful>
     <b-row>
       <b-col>
         <Widget

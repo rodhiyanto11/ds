@@ -6,8 +6,8 @@
     @mouseleave="sidebarMouseLeave"
   >
     <header class="logo">
-      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar thumb float-center"><img v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class=" img-close"></span></router-link>
-      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar float-center"><img  v-bind:src="require('@/assets/whitelabel/'+changeLogo)" alt="..." class=" img-open"></span></router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar thumb float-center"><img v-bind:src="changeLogo" alt="..." class=" img-close"></span></router-link>
+      <router-link to="/app/dashboard"><span data-v-741978ef="" class="avatar float-center"><img  v-bind:src="changeLogo" alt="..." class=" img-open"></span></router-link>
     </header>
     <ul class="sidebar-nav">
       

@@ -9,7 +9,7 @@
       <Widget class="mx-auto" customHeader>
        <center>
           <!-- <img :src="require(`@/assets/whitelabel/${changeLogo}`)" style="width:200px;height:150px;"> -->
-          <img v-bind:src="require('@/assets/whitelabel/'+changeLogo+'')" style="width:200px;height:150px;">
+          <img v-bind:src="changeLogo" style="width:200px;height:150px;">
 
         </center>
         <p class="text-muted mb-0 mt fs-sm">
@@ -80,7 +80,7 @@ export default {
      // console.log(window.localStorage.getItem('company'))
           this.$axios.get('api/getcompanies', {params: {companies_name: window.localStorage.getItem('company'),logo : true}})
           .then((response) => {
-          this.logo = response.data.data.companies_logo;
+          this.logo = response.data.url+'/img/logo/whitelabel/'+response.data.data.companies_logo;
           this.color =  'linear-gradient(110deg, '+response.data.data.companies_color+' 65%, whitesmoke 20%)';
           })
         .catch(errors => {
@@ -115,8 +115,9 @@ export default {
         localStorage.setItem('userdetail',res);
         //localStorage.setItem('color',this.color);
           this.$router.push('/app/dashboard');
+          this.$router.push('/app/dashboard');
           this.varLoad = false;
-          location.reload();
+          //location.reload();
         })
         .catch(error=>{
           this.varLoad = false;
@@ -133,7 +134,7 @@ export default {
           this.$axios.get('api/getcompanies', {params: {companies_name: window.localStorage.getItem('company'),logo:true}})
           .then((response) => {
          
-          localStorage.setItem('logo',response.data.data.companies_logo);
+          localStorage.setItem('logo',response.data.url+'/img/logo/whitelabel/'+response.data.data.companies_logo);
           localStorage.setItem('color',response.data.data.companies_color);
           })
         .catch(errors => {

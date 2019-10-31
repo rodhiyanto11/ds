@@ -50,6 +50,13 @@ function guardLogin(to, from, next){
       next(); // go to '/login';
   }
 }
+function guardDashboard(to,from,next){
+  if(window.localStorage.getItem('status') != 2){
+    next();
+  }else{
+    next('/app/profile');
+  }
+}
 
 
 export default new Router({
@@ -76,6 +83,7 @@ export default new Router({
           path: 'dashboard',
           name: 'AnalyticsPage',
           component: AnalyticsPage,
+          beforeEnter : guardDashboard
         },{
           path : 'profile',
           name : 'ProfilePage',
